@@ -19,8 +19,13 @@ const whatsappNumber =
 
 const servicesLabels = {
   pt: ['Construção', 'Reformas', 'Manutenções', 'Gestão de Projetos', 'Tecnologia'],
-  en: ['Construction', 'Renovations', 'Maintenance', 'Project Management', 'Technology'],
-} as const
+  en: ['Construction', 'Renovation', 'Maintenance', 'Project Management', 'Technology'],
+}
+
+const companyLabels = {
+  pt: ['Sobre Nós', 'Trabalhe Conosco', 'Projetos', 'Tecnologia'],
+  en: ['About Us', 'Work with Us', 'Projects', 'Technology'],
+}
 
 export default function Footer() {
   const { language } = useLanguage()
@@ -31,6 +36,7 @@ export default function Footer() {
     : 'Civil engineering excellence, bringing together construction tradition and technological innovation.'
 
   const servicesTitle = isPt ? 'Serviços' : 'Services'
+  const companyTitle = isPt ? 'Empresa' : 'Company'
   const quickLinksTitle = isPt ? 'Links Rápidos' : 'Quick Links'
   const contactTitle = isPt ? 'Contato' : 'Contact'
 
@@ -51,6 +57,7 @@ export default function Footer() {
     : 'All rights reserved.'
 
   const servicesNames = servicesLabels[language]
+  const companyNames = companyLabels[language]
 
   return (
     <footer className="bg-background-card border-t border-border">
@@ -104,44 +111,30 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Links Rápidos */}
+          {/* Empresa */}
           <div>
             <h3 className="font-semibold text-white mb-4">
-              {quickLinksTitle}
+              {companyTitle}
             </h3>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/sobre"
-                  className="text-gray-400 hover:text-primary transition-colors text-sm"
-                >
-                  {aboutLabel}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/projetos"
-                  className="text-gray-400 hover:text-primary transition-colors text-sm"
-                >
-                  {projectsLabel}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/tecnologia"
-                  className="text-gray-400 hover:text-primary transition-colors text-sm"
-                >
-                  {technologyLabel}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contato"
-                  className="text-gray-400 hover:text-primary transition-colors text-sm"
-                >
-                  {contactLabel}
-                </Link>
-              </li>
+            <ul className="space-y-3">
+              {companyNames.map((item, i) => (
+                <li key={i}>
+                  <Link
+                    href={
+                      item === 'Sobre Nós' || item === 'About Us'
+                        ? '/sobre'
+                        : item === 'Trabalhe Conosco' || item === 'Work with Us'
+                        ? '/trabalhe-conosco'
+                        : item === 'Projetos' || item === 'Projects'
+                        ? '/projetos'
+                        : '/tecnologia'
+                    }
+                    className="text-gray-400 hover:text-primary transition-colors"
+                  >
+                    {item}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -150,57 +143,42 @@ export default function Footer() {
             <h3 className="font-semibold text-white mb-4">
               {contactTitle}
             </h3>
-            <ul className="space-y-3">
-              <li>
-                <a
-                  href={`https://wa.me/${whatsappNumber}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 text-gray-400 hover:text-primary transition-colors text-sm"
-                >
-                  <FaWhatsapp size={18} className="flex-shrink-0" />
-                  {whatsappLabel}
-                </a>
-              </li>
-              <li>
-                <a
-                  href="mailto:contato@rgomesengenharia.com.br"
-                  className="flex items-center gap-3 text-gray-400 hover:text-primary transition-colors text-sm"
-                >
-                  <FaEnvelope size={18} className="flex-shrink-0" />
-                  <span>
-                    {emailLabel}: contato@rgomesengenharia.com.br
-                  </span>
-                </a>
-              </li>
-              <li className="flex items-start gap-3 text-gray-400 text-sm">
-                <FaMapMarkerAlt
-                  size={18}
-                  className="flex-shrink-0 mt-0.5"
-                />
-                <span>{locationLabel}</span>
-              </li>
-            </ul>
+            <div className="space-y-3">
+              <a
+                href={`https://wa.me/${whatsappNumber}`}
+                className="flex items-center gap-3 text-gray-400 hover:text-primary transition-colors"
+              >
+                <FaWhatsapp className="text-green-500" size={18} />
+                <span className="text-sm">{whatsappNumber}</span>
+              </a>
+              <a
+                href="mailto:contato@rgomesengenharia.com.br"
+                className="flex items-center gap-3 text-gray-400 hover:text-primary transition-colors"
+              >
+                <FaEnvelope className="text-blue-500" size={18} />
+                <span className="text-sm">contato@rgomesengenharia.com.br</span>
+              </a>
+              <div className="flex items-center gap-3 text-gray-400">
+                <FaMapMarkerAlt className="text-red-500" size={18} />
+                <span className="text-sm">{locationLabel}</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="border-t border-border mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-500 text-sm">
-            © {new Date().getFullYear()} RGOMES Engenharia. {copyright}
-          </p>
-          <div className="flex gap-6 text-sm">
-            <Link
-              href="#"
-              className="text-gray-500 hover:text-gray-400"
-            >
-              {privacyLabel}
-            </Link>
-            <Link
-              href="#"
-              className="text-gray-500 hover:text-gray-400"
-            >
-              {termsLabel}
-            </Link>
+        <div className="border-t border-border mt-12 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-gray-400 text-sm">
+              {new Date().getFullYear()} RGOMES Engenharia. {copyright}
+            </p>
+            <div className="flex gap-6 text-sm">
+              <Link href="#" className="text-gray-400 hover:text-primary transition-colors">
+                {privacyLabel}
+              </Link>
+              <Link href="#" className="text-gray-400 hover:text-primary transition-colors">
+                {termsLabel}
+              </Link>
+            </div>
           </div>
         </div>
       </Container>

@@ -16,6 +16,7 @@ const navLinks = {
     { href: '/servicos', label: 'Serviços' },
     { href: '/projetos', label: 'Projetos' },
     { href: '/tecnologia', label: 'Tecnologia' },
+    { href: '/trabalhe-conosco', label: 'Trabalhe Conosco' },
     { href: '/contato', label: 'Contato' },
   ],
   en: [
@@ -24,6 +25,7 @@ const navLinks = {
     { href: '/servicos', label: 'Services' },
     { href: '/projetos', label: 'Projects' },
     { href: '/tecnologia', label: 'Technology' },
+    { href: '/trabalhe-conosco', label: 'Work with Us' },
     { href: '/contato', label: 'Contact' },
   ],
 } as const

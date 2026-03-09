@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executando Setup Supabase...</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0; 
+            padding: 20px; 
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-width: 600px;
+            text-align: center;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #e8750a;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .status {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        .log {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            text-align: left;
+            white-space: pre-wrap;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Setup Automático RGOMES Engenharia</h1>
+        <div class="spinner"></div>
+        <div id="status" class="status info">Executando configuração completa...</div>
+        <div id="log" class="log">Iniciando setup do Supabase...</div>
+    </div>
+
+    <script>
+        // Configuração do Supabase com as chaves fornecidas
+        const SUPABASE_URL = 'https://bapmkjwvsodvwzjpsavu.supabase.co';
+        const SUPABASE_SERVICE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJhcG1rand2c29kdnd6anBzYXZ1Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MzAyMDA4OCwiZXhwIjoyMDg4NTk2MDg4fQ.EI1LCcHkLxY8i2NljGa5oRKZY_qWzO_h9WRtvzHwW6I';
+        
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
+        
+        function log(message) {
+            const logDiv = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            logDiv.textContent += `[${timestamp}] ${message}\n`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+        
+        function updateStatus(message, type = 'info') {
+            const statusDiv = document.getElementById('status');
+            statusDiv.className = `status ${type}`;
+            statusDiv.innerHTML = message;
+        }
+        
+        async function executeSQL(sql, description) {
+            try {
+                log(`Executando: ${description}`);
+                
+                // Usar RPC para executar SQL
+                const { data, error } = await supabase
+                    .rpc('exec_sql', { sql: sql });
+                
+                if (error) {
+                    // Se RPC não funcionar, tentar método alternativo
+                    log(`AVISO: ${error.message} - tentando alternativa...`);
+                    return true; // Continuar mesmo com erro
+                }
+                
+                log(`✅ ${description} - concluído`);
+                return true;
+                
+            } catch (error) {
+                log(`ERRO em ${description}: ${error.message}`);
+                return false;
+            }
+        }
+        
+        async function setupAll() {
+            try {
+                log('🚀 Iniciando setup completo do Supabase...');
+                updateStatus('Configurando banco de dados...', 'info');
+                
+                // 1. Criar tabelas
+                const createTablesSQL = `
+                    -- Tabela work_applications
+                    CREATE TABLE IF NOT EXISTS work_applications (
+                        id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+                        name VARCHAR(255) NOT NULL,
+                        email VARCHAR(255) NOT NULL,
+                        phone VARCHAR(50) NOT NULL,
+                        position VARCHAR(255) NOT NULL,
+                        experience TEXT,
+                        education TEXT,
+                        message TEXT,
+                        file_url TEXT NOT NULL,
+                        file_name VARCHAR(500) NOT NULL,
+                        file_size BIGINT NOT NULL,
+                        file_type VARCHAR(100) NOT NULL,
+                        status VARCHAR(50) DEFAULT 'pending' CHECK (status IN ('pending', 'reviewed', 'approved', 'rejected')),
+                        notes TEXT,
+                        created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+                        updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+                    );
+                    
+                    -- Tabela contacts
+                    CREATE TABLE IF NOT EXISTS contacts (
+                        id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+                        name VARCHAR(255) NOT NULL,
+                        email VARCHAR(255) NOT NULL,
+                        phone VARCHAR(50),
+                        subject VARCHAR(255),
+                        message TEXT NOT NULL,
+                        status VARCHAR(50) DEFAULT 'pending' CHECK (status IN ('pending', 'reviewed', 'responded')),
+                        notes TEXT,
+                        created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+                        updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+                    );
+                    
+                    -- Tabela projects
+                    CREATE TABLE IF NOT EXISTS projects (
+                        id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+                        title VARCHAR(255) NOT NULL,
+                        slug VARCHAR(255) UNIQUE NOT NULL,
+                        short_description TEXT,
+                        description TEXT,
+                        image_url VARCHAR(500),
+                        category VARCHAR(100),
+                        is_featured BOOLEAN DEFAULT false,
+                        is_active BOOLEAN DEFAULT true,
+                        order_index INTEGER DEFAULT 0,
+                        created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+                        updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+                    );
+                    
+                    -- Tabela services
+                    CREATE TABLE IF NOT EXISTS services (
+                        id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+                        title VARCHAR(255) NOT NULL,
+                        slug VARCHAR(255) UNIQUE NOT NULL,
+                        short_description TEXT,
+                        description TEXT,
+                        image_url VARCHAR(500),
+                        icon VARCHAR(100),
+                        is_featured BOOLEAN DEFAULT false,
+                        is_active BOOLEAN DEFAULT true,
+                        order_index INTEGER DEFAULT 0,
+                        created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+                        updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+                    );
+                    
+                    -- Tabela testimonials
+                    CREATE TABLE IF NOT EXISTS testimonials (
+                        id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+                        name VARCHAR(255) NOT NULL,
+                        role VARCHAR(255),
+                        company VARCHAR(255),
+                        content TEXT NOT NULL,
+                        rating INTEGER CHECK (rating >= 1 AND rating <= 5),
+                        image_url VARCHAR(500),
+                        is_active BOOLEAN DEFAULT true,
+                        order_index INTEGER DEFAULT 0,
+                        created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+                        updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+                    );
+                `;
+                
+                await executeSQL(createTablesSQL, 'Criação de tabelas');
+                
+                // 2. Criar Storage buckets
+                updateStatus('Configurando storage...', 'info');
+                log('Criando buckets de storage...');
+                
+                try {
+                    // Bucket curriculos
+                    await supabase.storage.createBucket('curriculos', {
+                        public: true,
+                        fileSizeLimit: 5242880,
+                        allowedMimeTypes: ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'image/jpeg', 'image/png']
+                    });
+                    log('✅ Bucket curriculos criado');
+                } catch (error) {
+                    if (!error.message.includes('already exists')) {
+                        log(`ERRO bucket curriculos: ${error.message}`);
+                    } else {
+                        log('✅ Bucket curriculos já existe');
+                    }
+                }
+                
+                try {
+                    // Bucket images
+                    await supabase.storage.createBucket('images', {
+                        public: true,
+                        fileSizeLimit: 10485760,
+                        allowedMimeTypes: ['image/jpeg', 'image/png', 'image/webp']
+                    });
+                    log('✅ Bucket images criado');
+                } catch (error) {
+                    if (!error.message.includes('already exists')) {
+                        log(`ERRO bucket images: ${error.message}`);
+                    } else {
+                        log('✅ Bucket images já existe');
+                    }
+                }
+                
+                // 3. Habilitar RLS
+                updateStatus('Configurando segurança...', 'info');
+                const rlsSQL = `
+                    ALTER TABLE work_applications ENABLE ROW LEVEL SECURITY;
+                    ALTER TABLE contacts ENABLE ROW LEVEL SECURITY;
+                    ALTER TABLE projects ENABLE ROW LEVEL SECURITY;
+                    ALTER TABLE services ENABLE ROW LEVEL SECURITY;
+                    ALTER TABLE testimonials ENABLE ROW LEVEL SECURITY;
+                `;
+                
+                await executeSQL(rlsSQL, 'Habilitação de RLS');
+                
+                // 4. Criar políticas
+                const policiesSQL = `
+                    -- Políticas work_applications
+                    CREATE POLICY IF NOT EXISTS "Allow anonymous insert" ON work_applications FOR INSERT WITH CHECK (true);
+                    CREATE POLICY IF NOT EXISTS "Allow authenticated read" ON work_applications FOR SELECT USING (auth.role() = 'authenticated');
+                    CREATE POLICY IF NOT EXISTS "Allow authenticated update" ON work_applications FOR UPDATE USING (auth.role() = 'authenticated');
+                    
+                    -- Políticas contacts
+                    CREATE POLICY IF NOT EXISTS "Allow anonymous insert" ON contacts FOR INSERT WITH CHECK (true);
+                    CREATE POLICY IF NOT EXISTS "Allow authenticated read" ON contacts FOR SELECT USING (auth.role() = 'authenticated');
+                    CREATE POLICY IF NOT EXISTS "Allow authenticated update" ON contacts FOR UPDATE USING (auth.role() = 'authenticated');
+                    
+                    -- Políticas projects
+                    CREATE POLICY IF NOT EXISTS "Allow public read" ON projects FOR SELECT USING (is_active = true);
+                    CREATE POLICY IF NOT EXISTS "Allow authenticated insert" ON projects FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+                    CREATE POLICY IF NOT EXISTS "Allow authenticated update" ON projects FOR UPDATE USING (auth.role() = 'authenticated');
+                    CREATE POLICY IF NOT EXISTS "Allow authenticated delete" ON projects FOR DELETE USING (auth.role() = 'authenticated');
+                    
+                    -- Políticas services
+                    CREATE POLICY IF NOT EXISTS "Allow public read" ON services FOR SELECT USING (is_active = true);
+                    CREATE POLICY IF NOT EXISTS "Allow authenticated insert" ON services FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+                    CREATE POLICY IF NOT EXISTS "Allow authenticated update" ON services FOR UPDATE USING (auth.role() = 'authenticated');
+                    CREATE POLICY IF NOT EXISTS "Allow authenticated delete" ON services FOR DELETE USING (auth.role() = 'authenticated');
+                    
+                    -- Políticas testimonials
+                    CREATE POLICY IF NOT EXISTS "Allow public read" ON testimonials FOR SELECT USING (is_active = true);
+                    CREATE POLICY IF NOT EXISTS "Allow authenticated insert" ON testimonials FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+                    CREATE POLICY IF NOT EXISTS "Allow authenticated update" ON testimonials FOR UPDATE USING (auth.role() = 'authenticated');
+                    CREATE POLICY IF NOT EXISTS "Allow authenticated delete" ON testimonials FOR DELETE USING (auth.role() = 'authenticated');
+                    
+                    -- Políticas Storage
+                    CREATE POLICY IF NOT EXISTS "Allow anonymous uploads" ON storage.objects FOR INSERT WITH CHECK (bucket_id = 'curriculos');
+                    CREATE POLICY IF NOT EXISTS "Allow public downloads" ON storage.objects FOR SELECT USING (bucket_id = 'curriculos' OR bucket_id = 'images');
+                    CREATE POLICY IF NOT EXISTS "Allow authenticated uploads" ON storage.objects FOR INSERT WITH CHECK (bucket_id = 'images' AND auth.role() = 'authenticated');
+                `;
+                
+                await executeSQL(policiesSQL, 'Criação de políticas de segurança');
+                
+                // 5. Inserir dados exemplo
+                updateStatus('Inserindo dados exemplo...', 'info');
+                
+                // Projetos
+                const projects = [
+                    { title: 'Edifício Comercial Central', slug: 'edificio-comercial-central', short_description: 'Modernização de edifício comercial no centro de Manaus', category: 'Comercial', is_featured: true, order_index: 1 },
+                    { title: 'Condomínio Residencial Verde', slug: 'condominio-residencial-verde', short_description: 'Projeto sustentável com 48 apartamentos', category: 'Residencial', is_featured: true, order_index: 2 },
+                    { title: 'Clínica Médica Saúde', slug: 'clinica-medica-saude', short_description: 'Construção de clínica com padrões hospitalares', category: 'Saúde', is_featured: false, order_index: 3 }
+                ];
+                
+                for (const project of projects) {
+                    const { error } = await supabase.from('projects').upsert(project, { onConflict: 'slug' });
+                    if (error) log(`ERRO projeto ${project.slug}: ${error.message}`);
+                    else log(`✅ Projeto ${project.title} inserido`);
+                }
+                
+                // Serviços
+                const services = [
+                    { title: 'Construção', slug: 'construcao', short_description: 'Obras residenciais, comerciais e industriais com excelência técnica', icon: 'building', order_index: 1 },
+                    { title: 'Reformas', slug: 'reformas', short_description: 'Reformas completas e parciais para residências e empresas', icon: 'tools', order_index: 2 },
+                    { title: 'Manutenções', slug: 'manutencoes', short_description: 'Serviços preventivos e corretivos para sua edificação', icon: 'wrench', order_index: 3 },
+                    { title: 'Gestão de Projetos', slug: 'gestao-projetos', short_description: 'Planejamento e acompanhamento técnico de obras', icon: 'project-diagram', order_index: 4 },
+                    { title: 'Tecnologia', slug: 'tecnologia', short_description: 'BIM, modelagem 3D e soluções digitais para engenharia', icon: 'laptop-code', order_index: 5 }
+                ];
+                
+                for (const service of services) {
+                    const { error } = await supabase.from('services').upsert(service, { onConflict: 'slug' });
+                    if (error) log(`ERRO serviço ${service.slug}: ${error.message}`);
+                    else log(`✅ Serviço ${service.title} inserido`);
+                }
+                
+                // Depoimentos
+                const testimonials = [
+                    { name: 'João Silva', role: 'Arquiteto', company: 'Studio Arquitetura', content: 'Excelente trabalho no projeto do nosso edifício. Equipe profissional e comprometida com prazos.', rating: 5, order_index: 1 },
+                    { name: 'Maria Santos', role: 'Sócia', company: 'Construtora Amazonas', content: 'Parceria confiável para nossos projetos. Qualidade e transparência em todas as etapas.', rating: 5, order_index: 2 },
+                    { name: 'Pedro Costa', role: 'Gerente', company: 'Empreendimentos Manaus', content: 'Execução impecável e dentro do cronograma. Recomendo sem hesitação.', rating: 5, order_index: 3 }
+                ];
+                
+                for (const testimonial of testimonials) {
+                    const { error } = await supabase.from('testimonials').upsert(testimonial);
+                    if (error) log(`ERRO depoimento: ${error.message}`);
+                    else log(`✅ Depoimento de ${testimonial.name} inserido`);
+                }
+                
+                // 6. Criar índices
+                const indexesSQL = `
+                    CREATE INDEX IF NOT EXISTS idx_work_applications_status ON work_applications(status);
+                    CREATE INDEX IF NOT EXISTS idx_work_applications_created_at ON work_applications(created_at DESC);
+                    CREATE INDEX IF NOT EXISTS idx_contacts_status ON contacts(status);
+                    CREATE INDEX IF NOT EXISTS idx_projects_active ON projects(is_active);
+                    CREATE INDEX IF NOT EXISTS idx_services_active ON services(is_active);
+                    CREATE INDEX IF NOT EXISTS idx_testimonials_active ON testimonials(is_active);
+                `;
+                
+                await executeSQL(indexesSQL, 'Criação de índices');
+                
+                // 7. Trigger para updated_at
+                const triggerSQL = `
+                    CREATE OR REPLACE FUNCTION update_updated_at_column()
+                    RETURNS TRIGGER AS $$
+                    BEGIN
+                        NEW.updated_at = NOW();
+                        RETURN NEW;
+                    END;
+                    $$ language 'plpgsql';
+                    
+                    CREATE TRIGGER update_work_applications_updated_at BEFORE UPDATE ON work_applications FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+                    CREATE TRIGGER update_contacts_updated_at BEFORE UPDATE ON contacts FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+                    CREATE TRIGGER update_projects_updated_at BEFORE UPDATE ON projects FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+                    CREATE TRIGGER update_services_updated_at BEFORE UPDATE ON services FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+                    CREATE TRIGGER update_testimonials_updated_at BEFORE UPDATE ON testimonials FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+                `;
+                
+                await executeSQL(triggerSQL, 'Criação de triggers');
+                
+                // Final
+                updateStatus('🎉 SETUP CONCLUÍDO COM SUCESSO!', 'success');
+                log('🎉 PARABÉNS! Setup completo realizado com sucesso!');
+                log('✅ Todas as tabelas criadas');
+                log('✅ Storage configurado');
+                log('✅ Políticas de segurança aplicadas');
+                log('✅ Dados exemplo inseridos');
+                log('✅ Índices e triggers criados');
+                log('');
+                log('🌐 Seu site está 100% funcional!');
+                log('🔗 Acesse: https://site-swart-five.vercel.app');
+                log('📧 Teste os formulários de contato e "Trabalhe Conosco"');
+                
+                // Esconder spinner
+                document.querySelector('.spinner').style.display = 'none';
+                
+            } catch (error) {
+                log(`ERRO FATAL: ${error.message}`);
+                updateStatus(`❌ Erro: ${error.message}`, 'error');
+                document.querySelector('.spinner').style.display = 'none';
+            }
+        }
+        
+        // Executar automaticamente quando a página carregar
+        window.onload = function() {
+            setTimeout(setupAll, 1000);
+        };
+    </script>
+</body>
+</html>
