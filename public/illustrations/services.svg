@@ -1,0 +1,38 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="s1" x1="140" y1="180" x2="1040" y2="760" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E8750A" stop-opacity="0.35"/>
+      <stop offset="0.45" stop-color="#2A5BA8" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#0F2347" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="b" x="-40%" y="-40%" width="180%" height="180%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="34"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="900" fill="none"/>
+
+  <g filter="url(#b)">
+    <path d="M240 620C240 460 360 320 520 280C680 240 860 300 950 430C1040 560 1000 730 860 800C720 870 520 860 390 780C260 700 240 780 240 620Z" fill="url(#s1)"/>
+  </g>
+
+  <g opacity="0.9">
+    <path d="M250 650L420 430L520 520L640 360L780 510L950 300" stroke="white" stroke-opacity="0.22" stroke-width="2"/>
+    <path d="M250 650H980" stroke="white" stroke-opacity="0.14" stroke-width="2"/>
+
+    <rect x="320" y="520" width="180" height="170" rx="18" stroke="white" stroke-opacity="0.18" stroke-width="2"/>
+    <rect x="540" y="460" width="220" height="230" rx="18" stroke="white" stroke-opacity="0.18" stroke-width="2"/>
+    <rect x="800" y="400" width="150" height="290" rx="18" stroke="white" stroke-opacity="0.18" stroke-width="2"/>
+
+    <path d="M360 560H450" stroke="white" stroke-opacity="0.16" stroke-width="2"/>
+    <path d="M360 600H460" stroke="white" stroke-opacity="0.16" stroke-width="2"/>
+
+    <path d="M580 510H720" stroke="white" stroke-opacity="0.16" stroke-width="2"/>
+    <path d="M580 550H700" stroke="white" stroke-opacity="0.16" stroke-width="2"/>
+    <path d="M580 590H740" stroke="white" stroke-opacity="0.16" stroke-width="2"/>
+
+    <path d="M830 460H910" stroke="white" stroke-opacity="0.16" stroke-width="2"/>
+    <path d="M830 500H900" stroke="white" stroke-opacity="0.16" stroke-width="2"/>
+    <path d="M830 540H920" stroke="white" stroke-opacity="0.16" stroke-width="2"/>
+  </g>
+</svg>

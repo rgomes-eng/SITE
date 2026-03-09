@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #E8750A;
+  --primary-dark: #C5620A;
+  --primary-light: #F59340;
+  --secondary: #1A3A6B;
+  --secondary-dark: #0F2347;
+  --secondary-light: #2A5BA8;
+  --accent: #5C2D0E;
+  --background-dark: #0F1B2D;
+  --background-card: #162032;
+  --border: #1E2D42;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-background-dark text-gray-100 antialiased;
+}
+
+/* Scrollbar customizada */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-light);
+}

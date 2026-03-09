@@ -1,0 +1,34 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="p1" x1="160" y1="200" x2="1040" y2="760" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E8750A" stop-opacity="0.30"/>
+      <stop offset="0.6" stop-color="#2A5BA8" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#0F1B2D" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="pb" x="-40%" y="-40%" width="180%" height="180%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="38"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="900" fill="none"/>
+
+  <g filter="url(#pb)">
+    <path d="M260 610C260 430 390 280 560 250C730 220 910 300 990 450C1070 600 990 770 820 820C650 870 470 820 360 740C250 660 260 790 260 610Z" fill="url(#p1)"/>
+  </g>
+
+  <g opacity="0.9">
+    <rect x="280" y="310" width="260" height="190" rx="22" stroke="white" stroke-opacity="0.18" stroke-width="2"/>
+    <rect x="580" y="280" width="360" height="250" rx="22" stroke="white" stroke-opacity="0.18" stroke-width="2"/>
+    <rect x="280" y="540" width="660" height="160" rx="22" stroke="white" stroke-opacity="0.18" stroke-width="2"/>
+
+    <path d="M320 360H500" stroke="white" stroke-opacity="0.14" stroke-width="2"/>
+    <path d="M320 400H460" stroke="white" stroke-opacity="0.14" stroke-width="2"/>
+
+    <path d="M620 340H900" stroke="white" stroke-opacity="0.14" stroke-width="2"/>
+    <path d="M620 380H850" stroke="white" stroke-opacity="0.14" stroke-width="2"/>
+    <path d="M620 420H880" stroke="white" stroke-opacity="0.14" stroke-width="2"/>
+
+    <path d="M320 600H900" stroke="white" stroke-opacity="0.14" stroke-width="2"/>
+    <path d="M320 640H820" stroke="white" stroke-opacity="0.14" stroke-width="2"/>
+  </g>
+</svg>

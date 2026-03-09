@@ -1,0 +1,31 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="c1" x1="180" y1="180" x2="1020" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2A5BA8" stop-opacity="0.30"/>
+      <stop offset="0.55" stop-color="#E8750A" stop-opacity="0.20"/>
+      <stop offset="1" stop-color="#0F1B2D" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="cb" x="-40%" y="-40%" width="180%" height="180%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="40"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="900" fill="none"/>
+
+  <g filter="url(#cb)">
+    <path d="M340 240C480 130 700 140 840 250C980 360 1050 520 990 660C930 800 760 860 600 830C440 800 320 700 290 560C260 420 200 350 340 240Z" fill="url(#c1)"/>
+  </g>
+
+  <g opacity="0.9">
+    <rect x="310" y="310" width="580" height="380" rx="28" stroke="white" stroke-opacity="0.18" stroke-width="2"/>
+    <path d="M330 350H870" stroke="white" stroke-opacity="0.14" stroke-width="2"/>
+
+    <path d="M380 420H820" stroke="white" stroke-opacity="0.14" stroke-width="2"/>
+    <path d="M380 470H760" stroke="white" stroke-opacity="0.14" stroke-width="2"/>
+    <path d="M380 520H800" stroke="white" stroke-opacity="0.14" stroke-width="2"/>
+
+    <path d="M380 600H640" stroke="white" stroke-opacity="0.14" stroke-width="2"/>
+    <rect x="690" y="570" width="130" height="70" rx="18" stroke="white" stroke-opacity="0.18" stroke-width="2"/>
+    <path d="M730 605H780" stroke="white" stroke-opacity="0.18" stroke-width="2"/>
+  </g>
+</svg>

@@ -1,0 +1,38 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="t1" x1="180" y1="160" x2="1020" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2A5BA8" stop-opacity="0.35"/>
+      <stop offset="0.55" stop-color="#E8750A" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#0F1B2D" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="tb" x="-40%" y="-40%" width="180%" height="180%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="36"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="900" fill="none"/>
+
+  <g filter="url(#tb)">
+    <path d="M340 220C470 120 690 120 830 210C970 300 1040 460 980 610C920 760 760 840 600 820C440 800 310 700 280 560C250 420 210 320 340 220Z" fill="url(#t1)"/>
+  </g>
+
+  <g opacity="0.9">
+    <rect x="280" y="260" width="640" height="420" rx="28" stroke="white" stroke-opacity="0.20" stroke-width="2"/>
+    <rect x="330" y="310" width="540" height="320" rx="22" stroke="white" stroke-opacity="0.16" stroke-width="2"/>
+
+    <path d="M360 360H840" stroke="white" stroke-opacity="0.14" stroke-width="2"/>
+    <path d="M360 410H740" stroke="white" stroke-opacity="0.14" stroke-width="2"/>
+    <path d="M360 460H800" stroke="white" stroke-opacity="0.14" stroke-width="2"/>
+
+    <path d="M560 330V610" stroke="white" stroke-opacity="0.12" stroke-width="2"/>
+    <path d="M460 520L560 420L660 500" stroke="white" stroke-opacity="0.22" stroke-width="2"/>
+
+    <circle cx="460" cy="520" r="10" fill="white" fill-opacity="0.22"/>
+    <circle cx="560" cy="420" r="10" fill="white" fill-opacity="0.22"/>
+    <circle cx="660" cy="500" r="10" fill="white" fill-opacity="0.22"/>
+
+    <path d="M920 390C960 390 992 422 992 462C992 502 960 534 920 534C880 534 848 502 848 462C848 422 880 390 920 390Z" stroke="white" stroke-opacity="0.18" stroke-width="2"/>
+    <path d="M906 462H934" stroke="white" stroke-opacity="0.18" stroke-width="2"/>
+    <path d="M920 448V476" stroke="white" stroke-opacity="0.18" stroke-width="2"/>
+  </g>
+</svg>

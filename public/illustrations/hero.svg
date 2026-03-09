@@ -1,0 +1,51 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g1" x1="187" y1="150" x2="1033" y2="750" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E8750A" stop-opacity="0.85"/>
+      <stop offset="0.5" stop-color="#2A5BA8" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#0F2347" stop-opacity="0.0"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="160" y1="120" x2="1040" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2A5BA8" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#E8750A" stop-opacity="0.25"/>
+    </linearGradient>
+    <filter id="blur" x="-40%" y="-40%" width="180%" height="180%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="40"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="900" fill="none"/>
+
+  <g filter="url(#blur)">
+    <path d="M270 250C370 120 560 60 720 120C880 180 1010 320 980 470C950 620 780 720 610 740C440 760 250 680 200 520C150 360 170 380 270 250Z" fill="url(#g1)"/>
+    <path d="M420 260C500 180 640 150 760 200C880 250 970 360 940 460C910 560 790 630 660 640C530 650 410 600 380 520C350 440 340 340 420 260Z" fill="url(#g2)"/>
+  </g>
+
+  <g opacity="0.9">
+    <path d="M260 740V380L420 300V740" stroke="white" stroke-opacity="0.22" stroke-width="2"/>
+    <path d="M420 740V300L600 220V740" stroke="white" stroke-opacity="0.22" stroke-width="2"/>
+    <path d="M600 740V220L780 280V740" stroke="white" stroke-opacity="0.22" stroke-width="2"/>
+    <path d="M780 740V280L940 360V740" stroke="white" stroke-opacity="0.22" stroke-width="2"/>
+
+    <path d="M260 380L420 300L600 220L780 280L940 360" stroke="white" stroke-opacity="0.22" stroke-width="2"/>
+
+    <path d="M312 520H368" stroke="white" stroke-opacity="0.18" stroke-width="2"/>
+    <path d="M312 580H368" stroke="white" stroke-opacity="0.18" stroke-width="2"/>
+    <path d="M312 640H368" stroke="white" stroke-opacity="0.18" stroke-width="2"/>
+
+    <path d="M470 480H550" stroke="white" stroke-opacity="0.18" stroke-width="2"/>
+    <path d="M470 540H550" stroke="white" stroke-opacity="0.18" stroke-width="2"/>
+    <path d="M470 600H550" stroke="white" stroke-opacity="0.18" stroke-width="2"/>
+    <path d="M470 660H550" stroke="white" stroke-opacity="0.18" stroke-width="2"/>
+
+    <path d="M650 510H730" stroke="white" stroke-opacity="0.18" stroke-width="2"/>
+    <path d="M650 570H730" stroke="white" stroke-opacity="0.18" stroke-width="2"/>
+    <path d="M650 630H730" stroke="white" stroke-opacity="0.18" stroke-width="2"/>
+
+    <path d="M820 520H888" stroke="white" stroke-opacity="0.18" stroke-width="2"/>
+    <path d="M820 580H888" stroke="white" stroke-opacity="0.18" stroke-width="2"/>
+    <path d="M820 640H888" stroke="white" stroke-opacity="0.18" stroke-width="2"/>
+  </g>
+
+  <path d="M160 780H1040" stroke="white" stroke-opacity="0.14" stroke-width="2"/>
+</svg>
