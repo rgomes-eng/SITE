@@ -14,6 +14,9 @@ export async function POST(request: NextRequest) {
       experience: formData.get('experience') as string,
       education: formData.get('education') as string,
       message: formData.get('message') as string,
+      data_sharing_consent: formData.get('data_sharing_consent') === 'true',
+      privacy_policy_consent: formData.get('privacy_policy_consent') === 'true',
+      cookie_policy_consent: formData.get('cookie_policy_consent') === 'true',
     }
 
     const file = formData.get('file') as File
@@ -22,6 +25,14 @@ export async function POST(request: NextRequest) {
     if (!data.name || !data.email || !data.phone || !data.position || !file) {
       return NextResponse.json(
         { error: 'Dados obrigatórios não preenchidos' },
+        { status: 400 }
+      )
+    }
+
+    // Validar consentimentos LGPD
+    if (!data.data_sharing_consent || !data.privacy_policy_consent || !data.cookie_policy_consent) {
+      return NextResponse.json(
+        { error: 'Todos os consentimentos são obrigatórios' },
         { status: 400 }
       )
     }
@@ -72,7 +83,7 @@ export async function POST(request: NextRequest) {
 
     // 3. Salvar dados no banco de dados
     const { data: insertData, error: insertError } = await supabase
-      .from('work_applications')
+      .from('work_with_us')
       .insert({
         name: data.name,
         email: data.email,
@@ -81,11 +92,10 @@ export async function POST(request: NextRequest) {
         experience: data.experience || null,
         education: data.education || null,
         message: data.message || null,
-        file_url: publicUrl,
-        file_name: file.name,
-        file_size: file.size,
-        file_type: file.type,
-        status: 'pending',
+        resume_url: publicUrl,
+        data_sharing_consent: data.data_sharing_consent,
+        privacy_policy_consent: data.privacy_policy_consent,
+        cookie_policy_consent: data.cookie_policy_consent,
         created_at: new Date().toISOString()
       })
       .select()

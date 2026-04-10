@@ -9,6 +9,7 @@ import {
   FaTools,
   FaProjectDiagram,
   FaLaptopCode,
+  FaBolt,
 } from 'react-icons/fa'
 import Container from '@/components/common/Container'
 import Section from '@/components/common/Section'
@@ -45,8 +46,14 @@ const servicesByLanguage = {
       slug: 'tecnologia',
       title: 'Tecnologia',
       description:
-        'BIM, modelagem 3D e soluções digitais para engenharia.',
+        'Infraestrutura de redes, CFTV, automação e cabeamento estruturado.',
       icon: FaLaptopCode,
+    },
+    {
+      slug: 'quick-services',
+      title: 'Quick Service',
+      description: 'Reformas rápidas e especializadas para sua residência.',
+      icon: FaBolt,
     },
   ],
   en: [
@@ -79,8 +86,14 @@ const servicesByLanguage = {
       slug: 'tecnologia',
       title: 'Technology',
       description:
-        'BIM, 3D modeling and digital solutions for engineering.',
+        'Network infrastructure, CCTV, automation and structured cabling.',
       icon: FaLaptopCode,
+    },
+    {
+      slug: 'quick-services',
+      title: 'Quick Service',
+      description: 'Quick and specialized renovations for your home.',
+      icon: FaBolt,
     },
   ],
 } as const
@@ -130,7 +143,7 @@ export default function ServicesSection() {
             <div className="relative rounded-3xl bg-white/5 ring-1 ring-white/10 overflow-hidden">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(232,117,10,0.22),transparent_55%)]" />
               <Image
-                src="/backgrounds/Editedimage_1761959139215.png"
+                src="/backgrounds/BIM_OFFICE_BG.png"
                 alt={imageAlt}
                 width={1200}
                 height={900}

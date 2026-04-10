@@ -24,7 +24,7 @@ export default function Logo({ className, size = 'md', withLink = true }: LogoPr
       )}
     >
       <Image
-        src="/Logo%20RGomes%20sem%20fundo_LP.PNG"
+        src="/Logomarca -Transparente-zoom.png"
         alt="RGOMES Engenharia"
         width={414}
         height={166}

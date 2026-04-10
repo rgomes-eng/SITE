@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
+import NextImage from 'next/image'
 import { createClient } from '@/lib/supabase/server'
 import {
   FaBuilding,
@@ -7,6 +8,7 @@ import {
   FaTools,
   FaProjectDiagram,
   FaLaptopCode,
+  FaBolt,
 } from 'react-icons/fa'
 
 export const metadata: Metadata = {
@@ -21,6 +23,7 @@ const iconMap: Record<string, typeof FaBuilding> = {
   FaTools: FaTools,
   FaProjectDiagram: FaProjectDiagram,
   FaLaptopCode: FaLaptopCode,
+  FaBolt: FaBolt,
 }
 
 export default async function ServicosPage() {
@@ -47,50 +50,58 @@ export default async function ServicosPage() {
           slug: 'construcao',
           title: 'Construção',
           short_description:
-            'Obras residenciais, comerciais e industriais.',
+            'Edificações residenciais, condomínios e projetos de grande porte com engenharia de excelência.',
           icon: 'FaBuilding',
+          image_url: '/illustrations/SITE_Residencial3_16x9.png',
         },
         {
           slug: 'reformas',
           title: 'Reformas',
-          short_description: 'Reformas completas e parciais.',
+          short_description: 'Reformas corporativas com zero downtime e centro comercial com operação contínua.',
           icon: 'FaHammer',
+          image_url: '/illustrations/[Projetos]Reforma Corporativa.png',
         },
         {
           slug: 'manutencoes',
           title: 'Manutenções',
-          short_description: 'Serviços preventivos e corretivos.',
+          short_description: 'Manutenção predial por demanda ou contratual para edifícios comerciais e residenciais.',
           icon: 'FaTools',
+          image_url: '/illustrations/Reforma_Fachada.png',
+        },
+        {
+          slug: 'tecnologia',
+          title: 'Soluções de Tecnologia',
+          short_description:
+            'Infraestrutura industrial, redes, sistemas de segurança e automação elétrica.',
+          icon: 'FaLaptopCode',
+          image_url: '/illustrations/SITE_Tecnologia_Infra.png',
         },
         {
           slug: 'gestao-projetos',
           title: 'Gestão de Projetos',
           short_description: 'Planejamento e acompanhamento técnico.',
           icon: 'FaProjectDiagram',
+          image_url: '/illustrations/HomeNight.png',
         },
         {
-          slug: 'tecnologia',
-          title: 'Soluções de Tecnologia',
-          short_description:
-            'BIM, modelagem 3D e ferramentas digitais.',
-          icon: 'FaLaptopCode',
+          slug: 'quick-services',
+          title: 'Quick Service',
+          short_description: 'Reformas rápidas e especializadas.',
+          icon: 'FaBolt',
+          image_url: '/illustrations/[Quick]Revisão_Elétrica.png',
         },
       ]
 
   return (
-    <div className="pt-24 pb-20">
-      <section className="container mx-auto px-4">
+    <div className="pt-32 pb-20">
+      <div className="container mx-auto px-4">
         <div className="max-w-3xl mb-16">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Nossos Serviços / <span className="text-primary">Our Services</span>
+            Nossos Serviços
           </h1>
           <p className="text-gray-400 text-lg">
             Soluções completas em engenharia civil, do projeto à execução.
             Conheça cada uma de nossas áreas de atuação.
-          </p>
-          <p className="text-gray-400 text-lg mt-3">
-            Complete civil engineering solutions, from design to execution.
-            Explore each of our areas of expertise.
           </p>
         </div>
 
@@ -101,32 +112,51 @@ export default async function ServicosPage() {
               title: string
               short_description?: string
               icon?: string
+              image_url?: string
             }) => {
               const Icon = iconMap[service.icon || 'FaBuilding'] ?? FaBuilding
               return (
                 <Link
                   key={service.slug}
-                  href={`/servicos/${service.slug}`}
-                  className="block p-6 rounded-xl bg-background-card border border-border hover:border-primary/50 transition-all group"
+                  href={service.slug === 'quick-services' ? '/servicos/quick-services' : `/servicos/${service.slug}`}
+                  className="block overflow-hidden rounded-xl bg-background-card border border-border hover:border-primary/50 transition-all group"
                 >
-                  <div className="w-14 h-14 rounded-lg bg-primary/20 flex items-center justify-center mb-4 group-hover:bg-primary/30 transition-colors">
-                    <Icon className="text-primary" size={28} />
+                  {/* Service Image */}
+                  <div className="aspect-video relative overflow-hidden">
+                    <NextImage
+                      src={service.image_url || '/illustrations/projects.svg'}
+                      alt={service.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                   </div>
-                  <h2 className="text-xl font-semibold text-white mb-2 group-hover:text-primary transition-colors">
-                    {service.title}
-                  </h2>
-                  <p className="text-gray-400 text-sm">
-                    {service.short_description}
-                  </p>
-                  <span className="inline-block mt-4 text-primary text-sm font-medium">
-                    Saiba mais / Learn more →
-                  </span>
+                  
+                  {/* Service Content */}
+                  <div className="p-5">
+                    <div className="flex items-start gap-3 mb-3">
+                      <div className="w-10 h-10 rounded-lg bg-primary/15 ring-1 ring-primary/20 flex items-center justify-center shrink-0">
+                        <Icon className="text-primary" size={20} />
+                      </div>
+                      <div className="flex-1">
+                        <h2 className="text-lg font-semibold text-white group-hover:text-primary transition-colors">
+                          {service.title}
+                        </h2>
+                      </div>
+                    </div>
+                    <p className="text-gray-400 text-sm leading-relaxed">
+                      {service.short_description}
+                    </p>
+                    <span className="inline-block mt-4 text-primary text-sm font-medium">
+                      Saiba mais →
+                    </span>
+                  </div>
                 </Link>
               )
             }
           )}
         </div>
-      </section>
+      </div>
     </div>
   )
 }

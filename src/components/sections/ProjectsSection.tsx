@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { FaArrowRight } from 'react-icons/fa'
 import Container from '@/components/common/Container'
+import { useLanguage } from '@/context/LanguageContext'
 
 interface Project {
   id: string
@@ -53,13 +54,59 @@ function getPlaceholderImage(project: Project): string {
     return '/illustrations/HomeNight.png'
   }
   if (cat.includes('reforma') || slug.includes('reforma')) {
-    return '/illustrations/Reforma_Fachada.png'
+    return '/illustrations/[Projetos]Reforma Corporativa.png'
+  }
+  if (cat.includes('tecnologia') || slug.includes('infraestrutura-industrial')) {
+    return '/illustrations/SITE_Tecnologia_Infra.png'
   }
   return '/illustrations/projects.svg'
 }
 
 export default function ProjectsSection({ projects = [] }: ProjectsSectionProps) {
+  const { language } = useLanguage()
   const displayProjects = projects.length > 0 ? projects : fallbackProjects
+
+  const content = {
+    pt: {
+      label: 'Portfólio',
+      title: 'Projetos em destaque',
+      description: 'Seleção de entregas que mostram qualidade, organização e padrão de execução.',
+      viewAll: 'Ver todos',
+    },
+    en: {
+      label: 'Portfolio',
+      title: 'Featured Projects',
+      description: 'Selection of deliveries that show quality, organization and execution standard.',
+      viewAll: 'View all',
+    },
+  }
+
+  const projectTranslations = {
+    pt: {
+      'Edificação Residencial': 'Edificação Residencial',
+      'Reforma Corporativa': 'Reforma Corporativa',
+      'Infraestrutura Industrial': 'Infraestrutura Industrial',
+      'Obra completa com alta qualidade de acabamento.': 'Obra completa com alta qualidade de acabamento.',
+      'Modernização de espaços comerciais.': 'Modernização de espaços comerciais.',
+      'Projeto de grande porte com gestão BIM.': 'Projeto de grande porte com gestão BIM.',
+      'Construção': 'Construção',
+      'Reformas': 'Reformas',
+      'Tecnologia': 'Tecnologia',
+    },
+    en: {
+      'Edificação Residencial': 'Residential Building',
+      'Reforma Corporativa': 'Corporate Renovation',
+      'Infraestrutura Industrial': 'Industrial Infrastructure',
+      'Obra completa com alta qualidade de acabamento.': 'Complete work with high quality finishing.',
+      'Modernização de espaços comerciais.': 'Modernization of commercial spaces.',
+      'Projeto de grande porte com gestão BIM.': 'Large-scale project with BIM management.',
+      'Construção': 'Construction',
+      'Reformas': 'Renovations',
+      'Tecnologia': 'Technology',
+    },
+  }
+
+  const t = projectTranslations[language]
 
   return (
     <section className="py-20 relative overflow-hidden">
@@ -74,17 +121,17 @@ export default function ProjectsSection({ projects = [] }: ProjectsSectionProps)
           className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12"
         >
           <div>
-            <p className="text-primary font-semibold mb-4">Portfólio</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Projetos em destaque</h2>
+            <p className="text-primary font-semibold mb-4">{content[language].label}</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{content[language].title}</h2>
             <p className="text-gray-300/80 max-w-xl text-lg">
-              Seleção de entregas que mostram qualidade, organização e padrão de execução.
+              {content[language].description}
             </p>
           </div>
           <Link
             href="/projetos"
             className="inline-flex items-center gap-2 px-5 py-3 bg-white/5 hover:bg-white/10 ring-1 ring-white/10 hover:ring-white/15 text-gray-100 font-semibold rounded-xl transition-colors shrink-0"
           >
-            Ver todos
+            {content[language].viewAll}
             <FaArrowRight size={16} />
           </Link>
         </motion.div>
@@ -126,13 +173,13 @@ export default function ProjectsSection({ projects = [] }: ProjectsSectionProps)
                 </div>
                 <div className="p-5">
                   {project.category && (
-                    <span className="text-primary text-sm font-medium">{project.category}</span>
+                    <span className="text-primary text-sm font-medium">{t[project.category as keyof typeof t] || project.category}</span>
                   )}
                   <h3 className="text-lg font-semibold text-white mt-1 group-hover:text-primary transition-colors">
-                    {project.title}
+                    {t[project.title as keyof typeof t] || project.title}
                   </h3>
                   <p className="text-gray-400 text-sm mt-2 line-clamp-2">
-                    {project.short_description}
+                    {t[project.short_description as keyof typeof t] || project.short_description}
                   </p>
                 </div>
               </Link>

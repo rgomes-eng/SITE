@@ -12,21 +12,19 @@ import { useLanguage } from '@/context/LanguageContext'
 const navLinks = {
   pt: [
     { href: '/', label: 'Início' },
-    { href: '/sobre', label: 'Sobre Nós' },
+    { href: '/about', label: 'Sobre Nós' },
     { href: '/servicos', label: 'Serviços' },
-    { href: '/projetos', label: 'Projetos' },
-    { href: '/tecnologia', label: 'Tecnologia' },
+    { href: '/projects', label: 'Projetos' },
     { href: '/trabalhe-conosco', label: 'Trabalhe Conosco' },
-    { href: '/contato', label: 'Contato' },
+    { href: '/#contato', label: 'Contato' },
   ],
   en: [
     { href: '/', label: 'Home' },
-    { href: '/sobre', label: 'About Us' },
+    { href: '/about', label: 'About Us' },
     { href: '/servicos', label: 'Services' },
-    { href: '/projetos', label: 'Projects' },
-    { href: '/tecnologia', label: 'Technology' },
+    { href: '/projects', label: 'Projects' },
     { href: '/trabalhe-conosco', label: 'Work with Us' },
-    { href: '/contato', label: 'Contact' },
+    { href: '/#contato', label: 'Contact' },
   ],
 } as const
 
@@ -106,7 +104,7 @@ export default function Header() {
                 </div>
 
                 <Link
-                  href="/contato"
+                  href="/#contato"
                   className="px-5 py-2.5 bg-primary hover:bg-primary-dark text-white text-sm font-semibold rounded-xl transition-colors shadow-sm"
                 >
                   {ctaLabel}
@@ -172,7 +170,7 @@ export default function Header() {
                 ))}
 
                 <Link
-                  href="/contato"
+                  href="/#contato"
                   className="px-5 py-3 bg-primary hover:bg-primary-dark text-white font-semibold rounded-xl text-center"
                   onClick={() => setMobileMenuOpen(false)}
                 >

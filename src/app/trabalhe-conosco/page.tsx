@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function WorkWithUsPage() {
   return (
     <>
-      <Section className="pt-28 pb-16">
+      <Section className="pt-32 pb-16">
         <Container className="relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <p className="text-primary font-semibold mb-5">Faça Parte da Equipe</p>

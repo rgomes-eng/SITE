@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { motion } from 'framer-motion'
 import { FaUpload, FaBriefcase, FaGraduationCap, FaEnvelope, FaPhone, FaUser } from 'react-icons/fa'
+import { DOCUMENTS, getDocumentUrl, getDocumentTitle } from '@/utils/documents'
 
 interface FormData {
   name: string
@@ -14,6 +15,9 @@ interface FormData {
   education: string
   message: string
   file: FileList
+  data_sharing_consent: boolean
+  privacy_policy_consent: boolean
+  cookie_policy_consent: boolean
 }
 
 const positions = [
@@ -63,6 +67,11 @@ export default function WorkWithUsForm() {
           formData.append(key, data[key as keyof FormData] as string)
         }
       })
+
+      // Adicionar checkboxes booleanos
+      formData.append('data_sharing_consent', data.data_sharing_consent.toString())
+      formData.append('privacy_policy_consent', data.privacy_policy_consent.toString())
+      formData.append('cookie_policy_consent', data.cookie_policy_consent.toString())
 
       // Adicionar arquivo se existir
       if (data.file && data.file.length > 0) {
@@ -286,6 +295,81 @@ export default function WorkWithUsForm() {
           <p className="mt-1 text-xs text-gray-400">
             Formatos aceitos: PDF, DOCX, DOC, JPG, PNG (máx. 5MB)
           </p>
+        </div>
+
+        {/* LGPD Consentimentos */}
+        <div className="space-y-4 p-4 bg-primary/5 border border-primary/20 rounded-xl">
+          <div className="flex items-start gap-3">
+            <input
+              {...register('data_sharing_consent', {
+                required: 'Autorização de compartilhamento é obrigatória'
+              })}
+              type="checkbox"
+              id="data_sharing_consent"
+              className="mt-1 w-4 h-4 text-primary bg-white/5 border-white/20 rounded focus:ring-primary focus:ring-2"
+            />
+            <label htmlFor="data_sharing_consent" className="text-sm text-gray-300 leading-relaxed">
+              <span className="text-white font-medium">Autorizo o compartilhamento</span> do meu currículo e informações com o departamento de RH e gestores responsáveis pelo processo seletivo da RGOMES ENGENHARIA.
+            </label>
+          </div>
+          {errors.data_sharing_consent && (
+            <p className="text-red-400 text-sm">{errors.data_sharing_consent.message}</p>
+          )}
+
+          <div className="flex items-start gap-3">
+            <input
+              {...register('privacy_policy_consent', {
+                required: 'Aceitação dos termos é obrigatória'
+              })}
+              type="checkbox"
+              id="privacy_policy_consent"
+              className="mt-1 w-4 h-4 text-primary bg-white/5 border-white/20 rounded focus:ring-primary focus:ring-2"
+            />
+            <label htmlFor="privacy_policy_consent" className="text-sm text-gray-300 leading-relaxed">
+              <span className="text-white font-medium">Li e aceito os Termos e Condições</span> e a{' '}
+              <a 
+                href={getDocumentUrl('TERMS_AND_CONDITIONS')}
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-primary hover:text-primary-light underline font-medium"
+              >
+                Política de Privacidade e Proteção de Dados (LGPD)
+              </a>
+              {' '}autorizando o tratamento dos meus dados pessoais conforme descrito.
+            </label>
+          </div>
+          {errors.privacy_policy_consent && (
+            <p className="text-red-400 text-sm">{errors.privacy_policy_consent.message}</p>
+          )}
+
+          <div className="flex items-start gap-3">
+            <input
+              {...register('cookie_policy_consent', {
+                required: 'Aceitação da política de cookies é obrigatória'
+              })}
+              type="checkbox"
+              id="cookie_policy_consent"
+              className="mt-1 w-4 h-4 text-primary bg-white/5 border-white/20 rounded focus:ring-primary focus:ring-2"
+            />
+            <label htmlFor="cookie_policy_consent" className="text-sm text-gray-300 leading-relaxed">
+              <span className="text-white font-medium">Li e aceito a Política de Cookies</span> para uso de cookies essenciais e de analytics no site.{' '}
+              <a 
+                href={getDocumentUrl('COOKIE_POLICY')}
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-primary hover:text-primary-light underline font-medium"
+              >
+                Ver política completa
+              </a>
+            </label>
+          </div>
+          {errors.cookie_policy_consent && (
+            <p className="text-red-400 text-sm">{errors.cookie_policy_consent.message}</p>
+          )}
+
+          <div className="text-xs text-gray-400 mt-3">
+            <p>Seus dados serão tratados em conformidade com a Lei Federal nº 13.709/2018 (LGPD). Você pode solicitar a exclusão de seus dados a qualquer momento através do e-mail privacidade@rgomesengenharia.com.</p>
+          </div>
         </div>
 
         {/* Erro */}

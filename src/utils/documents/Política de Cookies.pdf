@@ -1,0 +1,217 @@
+# POLÍTICA DE COOKIES
+# RGOMES ENGENHARIA LTDA
+# Conforme Lei Federal nº 13.709/2018 - LGPD e GDPR
+
+## 1. O QUE SÃO COOKIES?
+
+Cookies são pequenos arquivos de texto armazenados no seu dispositivo quando você visita nosso site. Eles nos ajudam a melhorar sua experiência, fornecer funcionalidades essenciais e analisar o uso do site.
+
+## 2. TIPOS DE COOKIES UTILIZADOS
+
+### 2.1. Cookies Essenciais (Obrigatórios)
+- **Finalidade:** Necessários para o funcionamento básico do site
+- **Exemplos:** Autenticação, segurança, carrinho de compras
+- **Duração:** Sessão ou persistente
+- **Consentimento:** Não requer consentimento explícito
+
+### 2.2. Cookies de Desempenho (Analytics)
+- **Finalidade:** Coletar informações sobre como os visitantes usam o site
+- **Exemplos:** Google Analytics, tempo de página, páginas visitadas
+- **Duração:** Persistente (até 2 anos)
+- **Consentimento:** Requer consentimento explícito
+
+### 2.3. Cookies de Funcionalidade
+- **Finalidade:** Lembrar preferências e escolhas do usuário
+- **Exemplos:** Idioma preferido, tema visual, personalizações
+- **Duração:** Persistente (até 1 ano)
+- **Consentimento:** Requer consentimento explícito
+
+### 2.4. Cookies de Marketing (Não Utilizados)
+- **Finalidade:** Rastreamento para publicidade personalizada
+- **Status:** **NÃO UTILIZAMOS** cookies de marketing
+- **Justificativa:** Respeito à privacidade do usuário
+
+## 3. COOKIES ESPECÍFICOS DO NOSSO SITE
+
+### 3.1. Cookies Essenciais
+| Nome | Finalidade | Duração | Responsável |
+|------|------------|---------|-------------|
+| `session_id` | Manter sessão do usuário | Sessão | RGOMES Engenharia |
+| `csrf_token` | Proteção CSRF | Sessão | RGOMES Engenharia |
+| `language_preference` | Idioma selecionado | 1 ano | RGOMES Engenharia |
+
+### 3.2. Cookies de Analytics (Opcional)
+| Nome | Finalidade | Duração | Responsável |
+|------|------------|---------|-------------|
+| `_ga` | Google Analytics | 2 anos | Google |
+| `_gid` | Google Analytics | 24 horas | Google |
+| `_gat` | Google Analytics | 1 minuto | Google |
+
+## 4. GERENCIAMENTO DE COOKIES
+
+### 4.1. Consentimento
+- **Banner de Cookies:** Exibido na primeira visita
+- **Opções:** Aceitar todos, rejeitar não essenciais, personalizar
+- **Registro:** Consentimento salvo em `cookie_consent`
+- **Validade:** 1 ano
+
+### 4.2. Como Gerenciar
+1. **Através do Banner:** Aceitar ou rejeitar cookies
+2. **Configurações do Navegador:** Bloquear ou excluir cookies
+3. **Ferramentas Online:** Gerenciadores de privacidade
+
+### 4.3. Configurações por Navegador
+- **Chrome:** Configurações > Privacidade > Cookies
+- **Firefox:** Opções > Privacidade e Segurança > Cookies
+- **Safari:** Preferências > Privacidade > Cookies
+- **Edge:** Configurações > Cookies e permissões do site
+
+## 5. DADOS COLETADOS ATRAVÉS DE COOKIES
+
+### 5.1. Dados de Navegação
+- Páginas visitadas
+- Tempo de permanência
+- Dispositivo e navegador
+- Localização aproximada (país/cidade)
+
+### 5.2. Dados de Uso
+- Cliques e interações
+- Caminho de navegação
+- Erros e problemas técnicos
+- Performance do site
+
+### 5.3. Dados NÃO Coletados
+- Informações pessoais identificáveis
+- Senhas ou dados financeiros
+- Conversas privadas
+- Dados sensíveis
+
+## 6. COMPARTILHAMENTO DE DADOS
+
+### 6.1. Com Quem Compartilhamos
+- **Google Analytics:** Para análise de uso (se consentido)
+- **Hospedagem:** Para manutenção do site
+- **CDN:** Para performance de conteúdo
+
+### 6.2. Não Compartilhamos Com
+- Empresas de publicidade
+- Corretoras de dados
+- Terceiros não autorizados
+- Redes sociais
+
+## 7. SEGURANÇA DOS COOKIES
+
+### 7.1. Medidas de Segurança
+- Criptografia HTTPS obrigatória
+- Atributos `Secure` e `HttpOnly`
+- Restrição de domínio (`SameSite`)
+- Validação de dados
+
+### 7.2. Proteção contra
+- Cross-site scripting (XSS)
+- Cross-site request forgery (CSRF)
+- Interceptação de dados
+- Acesso não autorizado
+
+## 8. DIREITOS DO USUÁRIO
+
+Conforme LGPD e GDPR, você tem direito a:
+
+### 8.1. Direitos Fundamentais
+- **Informação:** Saber quais cookies usamos
+- **Consentimento:** Aceitar ou rejeitar cookies
+- **Acesso:** Ver dados coletados através de cookies
+- **Retificação:** Corrigir dados incorretos
+- **Eliminação:** Solicitar exclusão de cookies
+- **Portabilidade:** Exportar seus dados
+- **Oposição:** Bloquear cookies específicos
+
+### 8.2. Como Exercer Direitos
+- **E-mail:** privacidade@rgomesengenharia.com
+- **Telefone:** (92) 98124-2509
+- **Formulário:** Contato em nosso site
+- **ANPD:** Autoridade Nacional de Proteção de Dados
+
+## 9. COOKIES DE TERCEIROS
+
+### 9.1. Google Analytics (Opcional)
+- **Finalidade:** Análise de tráfego e uso
+- **Dados:** Anônimos e agregados
+- **Política:** [Política de Privacidade Google](https://policies.google.com/privacy)
+- **Controle:** Pode ser desativado
+
+### 9.2. Ferramentas de Desenvolvimento
+- **Vercel Analytics:** Performance e erros
+- **Next.js:** Funcionalidades essenciais
+- **React:** Estado da aplicação
+
+## 10. ATUALIZAÇÕES DA POLÍTICA
+
+### 10.1. Quando Atualizamos
+- Novos cookies implementados
+- Mudanças na legislação
+- Atualizações de segurança
+- Feedback dos usuários
+
+### 10.2. Notificação
+- E-mail para usuários cadastrados
+- Aviso no site
+- Data de última atualização visível
+
+## 11. CONTATO E SUPORTE
+
+### 11.1. Dúvidas e Solicitações
+- **E-mail:** privacidade@rgomesengenharia.com
+- **Telefone:** (92) 98124-2509
+- **Endereço:** Manaus, Amazonas, Brasil
+
+### 11.2. Autoridades de Proteção
+- **ANPD:** www.gov.br/anpd
+- **Procon:** www.procon.am.gov.br
+- **Reclame Aqui:** www.reclameaqui.com.br
+
+## 12. LEGISLAÇÃO APLICÁVEL
+
+### 12.1. Leis Brasileiras
+- **LGPD:** Lei Federal nº 13.709/2018
+- **Marco Civil da Internet:** Lei nº 12.965/2014
+- **Código de Defesa do Consumidor:** Lei nº 8.078/1990
+
+### 12.2. Regulamentações Internacionais
+- **GDPR:** Regulamento Geral de Proteção de Dados (UE)
+- **CCPA:** California Consumer Privacy Act (EUA)
+
+## 13. GLOSSÁRIO
+
+- **Cookie:** Arquivo de texto armazenado no dispositivo
+- **Session:** Período de navegação contínua
+- **Third-party:** Cookie de domínio diferente do site
+- **First-party:** Cookie do próprio domínio
+- **Pixel:** Elemento de rastreamento invisível
+
+---
+
+## DECLARAÇÃO DE CONSENTIMENTO DE COOKIES
+
+Eu, _______________________________________, declaro ter lido, compreendido e concordado com esta Política de Cookies, autorizando o uso de cookies no site da RGOMES ENGENHARIA LTDA conforme descrito.
+
+**Consentimento:**
+- [ ] Cookies essenciais (sempre ativos)
+- [ ] Cookies de desempenho (analytics)
+- [ ] Cookies de funcionalidade
+
+_________________________
+Assinatura
+
+_________________________
+Data
+
+---
+
+**DATA DA ÚLTIMA ATUALIZAÇÃO:** 09 de abril de 2026  
+**VERSÃO:** 1.0  
+**PRÓXIMA REVISÃO:** 09 de abril de 2027
+
+---
+
+*Esta política foi elaborada em conformidade com a Lei Federal nº 13.709/2018 (LGPD), GDPR e melhores práticas internacionais de proteção de dados.*

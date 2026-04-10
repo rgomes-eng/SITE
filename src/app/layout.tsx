@@ -5,21 +5,15 @@ import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import WhatsAppButton from '@/components/common/WhatsAppButton'
 import Providers from '@/components/common/Providers'
+import { createMetadata } from '@/lib/metadata'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
-export const metadata: Metadata = {
-  title: {
-    default: 'RGOMES Engenharia | Engenharia Civil em Manaus',
-    template: '%s | RGOMES Engenharia',
-  },
-  description: 'RGOMES Engenharia - Construção, reformas, manutenções, gestão de projetos e soluções tecnológicas para engenharia civil em Manaus. Mais de 15 anos de experiência.',
-  keywords: ['engenharia civil', 'construção', 'reformas', 'Manaus', 'BIM', 'gestão de projetos'],
-  authors: [{ name: 'RGOMES Engenharia' }],
-  openGraph: {
-    type: 'website',
-  },
-}
+export const metadata: Metadata = createMetadata({
+  title: 'RGOMES Engenharia',
+  description: 'Engenharia civil de excelência em Manaus. Construção, reformas, manutenção e projetos com qualidade e inovação.',
+  keywords: ['engenharia civil', 'construção', 'reformas', 'manaus', 'rgomes engenharia', 'obras civis'],
+})
 
 export default function RootLayout({
   children,

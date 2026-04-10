@@ -4,7 +4,6 @@ import Link from 'next/link'
 import {
   FaFacebook,
   FaInstagram,
-  FaLinkedin,
   FaWhatsapp,
   FaMapMarkerAlt,
   FaPhone,
@@ -14,8 +13,7 @@ import Container from '@/components/common/Container'
 import Logo from '@/components/common/Logo'
 import { useLanguage } from '@/context/LanguageContext'
 
-const whatsappNumber =
-  process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '5592999999999'
+const whatsappNumber = '5592981242509'
 
 const servicesLabels = {
   pt: ['Construção', 'Reformas', 'Manutenções', 'Gestão de Projetos', 'Tecnologia'],
@@ -71,9 +69,8 @@ export default function Footer() {
             </p>
             <div className="flex gap-4">
               {[
-                { icon: FaFacebook, href: '#' },
-                { icon: FaInstagram, href: '#' },
-                { icon: FaLinkedin, href: '#' },
+                { icon: FaFacebook, href: 'https://facebook.com/engenhariargomes' },
+                { icon: FaInstagram, href: 'https://instagram.com/rgomes.engenharia' },
                 { icon: FaWhatsapp, href: `https://wa.me/${whatsappNumber}` },
               ].map(({ icon: Icon, href }, i) => (
                 <a
@@ -149,14 +146,30 @@ export default function Footer() {
                 className="flex items-center gap-3 text-gray-400 hover:text-primary transition-colors"
               >
                 <FaWhatsapp className="text-green-500" size={18} />
-                <span className="text-sm">{whatsappNumber}</span>
+                <span className="text-sm">(92) 98124-2509</span>
               </a>
               <a
-                href="mailto:contato@rgomesengenharia.com.br"
+                href="https://instagram.com/rgomes.engenharia"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 text-gray-400 hover:text-pink-500 transition-colors"
+              >
+                <FaInstagram className="text-pink-500" size={18} />
+                <span className="text-sm">@rgomes.engenharia</span>
+              </a>
+              <a
+                href="mailto:cotato@rgomesengenharia.com"
                 className="flex items-center gap-3 text-gray-400 hover:text-primary transition-colors"
               >
                 <FaEnvelope className="text-blue-500" size={18} />
-                <span className="text-sm">contato@rgomesengenharia.com.br</span>
+                <span className="text-sm">cotato@rgomesengenharia.com</span>
+              </a>
+              <a
+                href="mailto:engenhariargomes@gmail.com"
+                className="flex items-center gap-3 text-gray-400 hover:text-primary transition-colors"
+              >
+                <FaEnvelope className="text-red-500" size={18} />
+                <span className="text-sm">engenhariargomes@gmail.com</span>
               </a>
               <div className="flex items-center gap-3 text-gray-400">
                 <FaMapMarkerAlt className="text-red-500" size={18} />
