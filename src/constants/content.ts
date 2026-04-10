@@ -115,7 +115,7 @@ export const CONTENT = {
       DESCRIPTION: 'Conheça alguns dos principais trabalhos que realizamos em engenharia civil.',
       LABEL: 'Portfólio',
       TITLE: 'Projetos em destaque',
-      SUBTITLE: 'Seleção de entregas que mostram qualidade, organização e padrão de execução.',
+      SUBTITLE: 'Exemplos de projetos que somos capazes de entregar',
       VIEW_ALL: 'Ver todos',
     },
     en: {
@@ -123,7 +123,7 @@ export const CONTENT = {
       DESCRIPTION: 'Meet some of the main works we have carried out in civil engineering.',
       LABEL: 'Portfolio',
       TITLE: 'Featured Projects',
-      SUBTITLE: 'Selection of deliveries that show quality, organization and execution standard.',
+      SUBTITLE: 'Examples of projects we are capable of delivering',
       VIEW_ALL: 'View all',
     },
   },
