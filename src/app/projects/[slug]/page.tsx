@@ -129,13 +129,14 @@ const projectContent: Record<string, {
 }
 
 interface ProjectPageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
-  const project = projectContent[params.slug]
+  const { slug } = await params
+  const project = projectContent[slug]
   
   if (!project) {
     return {
@@ -156,7 +157,8 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
-  const project = projectContent[params.slug]
+  const { slug } = await params
+  const project = projectContent[slug]
   
   if (!project) {
     notFound()
