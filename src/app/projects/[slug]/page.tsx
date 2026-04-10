@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { createClient } from '@/lib/supabase/server'
-import { FaBuilding, FaHammer, FaTools, FaProjectDiagram, FaLaptopCode, FaArrowLeft } from 'react-icons/fa'
+import { FaBuilding, FaHammer, FaTools, FaProjectDiagram, FaLaptopCode, FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 
 const iconMap: Record<string, typeof FaBuilding> = {
   FaBuilding: FaBuilding,
