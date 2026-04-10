@@ -45,6 +45,14 @@ const fallbackProjects: Project[] = [
     image_url: null,
     category: 'Tecnologia',
   },
+  {
+    id: '4',
+    title: 'Manutenção Predial',
+    slug: 'manutencao-predial',
+    short_description: 'Conservação e manutenção predial completa.',
+    image_url: null,
+    category: 'Reformas',
+  },
 ]
 
 function getPlaceholderImage(project: Project): string {
@@ -53,7 +61,7 @@ function getPlaceholderImage(project: Project): string {
   if (cat.includes('construção') || cat.includes('construcao') || slug.includes('edificacao-residencial')) {
     return '/illustrations/HomeNight.png'
   }
-  if (cat.includes('reforma') || slug.includes('reforma')) {
+  if (cat.includes('reforma') || slug.includes('reforma') || slug.includes('manutencao-predial')) {
     return '/illustrations/[Projetos]Reforma Corporativa.png'
   }
   if (cat.includes('tecnologia') || slug.includes('infraestrutura-industrial')) {
@@ -86,9 +94,11 @@ export default function ProjectsSection({ projects = [] }: ProjectsSectionProps)
       'Edificação Residencial': 'Edificação Residencial',
       'Reforma Corporativa': 'Reforma Corporativa',
       'Infraestrutura Industrial': 'Infraestrutura Industrial',
+      'Manutenção Predial': 'Manutenção Predial',
       'Obra completa com alta qualidade de acabamento.': 'Obra completa com alta qualidade de acabamento.',
       'Modernização de espaços comerciais.': 'Modernização de espaços comerciais.',
       'Projeto de grande porte com gestão BIM.': 'Projeto de grande porte com gestão BIM.',
+      'Conservação e manutenção predial completa.': 'Conservação e manutenção predial completa.',
       'Construção': 'Construção',
       'Reformas': 'Reformas',
       'Tecnologia': 'Tecnologia',
@@ -97,9 +107,11 @@ export default function ProjectsSection({ projects = [] }: ProjectsSectionProps)
       'Edificação Residencial': 'Residential Building',
       'Reforma Corporativa': 'Corporate Renovation',
       'Infraestrutura Industrial': 'Industrial Infrastructure',
+      'Manutenção Predial': 'Building Maintenance',
       'Obra completa com alta qualidade de acabamento.': 'Complete work with high quality finishing.',
       'Modernização de espaços comerciais.': 'Modernization of commercial spaces.',
       'Projeto de grande porte com gestão BIM.': 'Large-scale project with BIM management.',
+      'Conservação e manutenção predial completa.': 'Complete building conservation and maintenance.',
       'Construção': 'Construction',
       'Reformas': 'Renovations',
       'Tecnologia': 'Technology',
