@@ -128,7 +128,7 @@ export default function ProjectsSection({ projects = [] }: ProjectsSectionProps)
             </p>
           </div>
           <Link
-            href="/projetos"
+            href="/projects"
             className="inline-flex items-center gap-2 px-5 py-3 bg-white/5 hover:bg-white/10 ring-1 ring-white/10 hover:ring-white/15 text-gray-100 font-semibold rounded-xl transition-colors shrink-0"
           >
             {content[language].viewAll}
@@ -146,7 +146,7 @@ export default function ProjectsSection({ projects = [] }: ProjectsSectionProps)
               transition={{ delay: i * 0.1 }}
             >
               <Link
-                href={`/projetos/${project.slug}`}
+                href={`/projects/${project.slug}`}
                 className="block group overflow-hidden rounded-2xl bg-white/5 ring-1 ring-white/10 hover:ring-primary/30 transition-colors"
               >
                 <div className="aspect-video relative overflow-hidden">

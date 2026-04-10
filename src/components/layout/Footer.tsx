@@ -123,7 +123,7 @@ export default function Footer() {
                         : item === 'Trabalhe Conosco' || item === 'Work with Us'
                         ? '/trabalhe-conosco'
                         : item === 'Projetos' || item === 'Projects'
-                        ? '/projetos'
+                        ? '/projects'
                         : '/tecnologia'
                     }
                     className="text-gray-400 hover:text-primary transition-colors"

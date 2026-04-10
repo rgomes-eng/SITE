@@ -111,7 +111,7 @@ export default function HeroSection() {
                 <FaArrowRight size={16} />
               </Link>
               <Link
-                href="/projetos"
+                href="/projects"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-white/5 hover:bg-white/10 ring-1 ring-white/10 hover:ring-white/15 text-gray-100 font-semibold rounded-xl transition-colors"
               >
                 {secondaryCta}
