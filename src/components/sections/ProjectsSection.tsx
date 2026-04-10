@@ -70,13 +70,13 @@ export default function ProjectsSection({ projects = [] }: ProjectsSectionProps)
     pt: {
       label: 'Portfólio',
       title: 'Projetos em destaque',
-      description: 'Seleção de entregas que mostram qualidade, organização e padrão de execução.',
+      description: 'Exemplos de projetos que somos capazes de entregar',
       viewAll: 'Ver todos',
     },
     en: {
       label: 'Portfolio',
       title: 'Featured Projects',
-      description: 'Selection of deliveries that show quality, organization and execution standard.',
+      description: 'Examples of projects we are capable of delivering',
       viewAll: 'View all',
     },
   }
