@@ -68,11 +68,11 @@ export default function ContactSection() {
               </a>
               
               <a
-                href="mailto:cotato@rgomesengenharia.com"
+                href="mailto:contato@rgomesengenharia.com"
                 className="flex items-center gap-3 text-gray-300 hover:text-primary transition-colors"
               >
                 <FaEnvelope className="text-primary" size={20} />
-                <span className="text-sm">cotato@rgomesengenharia.com</span>
+                <span className="text-sm">contato@rgomesengenharia.com</span>
               </a>
               
               <a

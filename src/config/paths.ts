@@ -57,7 +57,7 @@ export const SOCIAL_LINKS = {
 export const CONTACT_INFO = {
   PHONE: '(92) 98124-2509',
   PHONE_FULL: '+5592981242509',
-  EMAIL_1: 'cotato@rgomesengenharia.com',
+  EMAIL_1: 'contato@rgomesengenharia.com',
   EMAIL_2: 'engenhariargomes@gmail.com',
   LOCATION: 'Manaus, Amazonas',
 } as const

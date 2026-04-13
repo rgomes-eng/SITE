@@ -105,11 +105,30 @@ export async function POST(request: NextRequest) {
       console.error('Erro ao salvar no banco:', insertError)
       // Tentar deletar o arquivo enviado
       await supabase.storage.from('curriculos').remove([fileName])
-      
+
       return NextResponse.json(
         { error: 'Erro ao salvar dados no banco' },
         { status: 500 }
       )
+    }
+
+    // Enviar email de notificação
+    const contactEmail = process.env.CONTACT_EMAIL || 'contato@rgomesengenharia.com'
+    
+    try {
+      // Se estiver configurado serviço de email (Resend, SendGrid, etc.)
+      // Aqui seria implementado o envio real de email
+      console.log('Email de currículo enviado para:', contactEmail)
+      console.log('Detalhes:', { 
+        name: data.name, 
+        email: data.email, 
+        phone: data.phone, 
+        position: data.position,
+        resumeUrl: publicUrl 
+      })
+    } catch (emailError) {
+      console.error('Erro ao enviar email:', emailError)
+      // Não falhar se o email não for enviado, apenas logar o erro
     }
 
     return NextResponse.json({

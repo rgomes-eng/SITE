@@ -36,6 +36,19 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Enviar email de notificação
+    const contactEmail = process.env.CONTACT_EMAIL || 'contato@rgomesengenharia.com'
+    
+    try {
+      // Se estiver configurado serviço de email (Resend, SendGrid, etc.)
+      // Aqui seria implementado o envio real de email
+      console.log('Email de contato enviado para:', contactEmail)
+      console.log('Detalhes:', { name, email, phone, subject, message })
+    } catch (emailError) {
+      console.error('Erro ao enviar email:', emailError)
+      // Não falhar se o email não for enviado, apenas logar o erro
+    }
+
     return NextResponse.json({ success: true })
   } catch (e) {
     console.error('Contact API error:', e)

@@ -158,11 +158,11 @@ export default function Footer() {
                 <span className="text-sm">@rgomes.engenharia</span>
               </a>
               <a
-                href="mailto:cotato@rgomesengenharia.com"
+                href="mailto:contato@rgomesengenharia.com"
                 className="flex items-center gap-3 text-gray-400 hover:text-primary transition-colors"
               >
                 <FaEnvelope className="text-blue-500" size={18} />
-                <span className="text-sm">cotato@rgomesengenharia.com</span>
+                <span className="text-sm">contato@rgomesengenharia.com</span>
               </a>
               <a
                 href="mailto:engenhariargomes@gmail.com"

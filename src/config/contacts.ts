@@ -4,17 +4,17 @@ export const CONTACTS = {
     display: '(92) 98124-2509',
     url: 'https://wa.me/5592981242509',
   },
-  
+
   phone: {
-    number: '+5592981242509',
+    number: '+55 92 98124-2509',
     display: '(92) 98124-2509',
     url: 'tel:+5592981242509',
   },
   
   emails: {
     primary: {
-      address: 'cotato@rgomesengenharia.com',
-      url: 'mailto:cotato@rgomesengenharia.com',
+      address: 'contato@rgomesengenharia.com',
+      url: 'mailto:contato@rgomesengenharia.com',
       icon: 'envelope',
       color: 'blue',
     },
