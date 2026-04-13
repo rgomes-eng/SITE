@@ -15,10 +15,9 @@ type FormData = {
 
 const texts = {
   pt: {
-    successTitle: 'Mensagem enviada!',
-    successBody:
-      'Obrigado pelo contato. Nossa equipe retornará em breve.',
-    genericError: 'Erro ao enviar. Tente novamente.',
+    successTitle: 'Mensagem enviada com sucesso!',
+    successBody: 'Obrigado pelo contato. Sua mensagem foi registrada e nossa equipe retornará em breve pelo email ou WhatsApp.',
+    genericError: 'Erro ao enviar. Verifique sua conexão e tente novamente.',
     nameLabel: 'Nome *',
     namePlaceholder: 'Seu nome',
     nameRequired: 'Nome é obrigatório',
