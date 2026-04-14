@@ -322,7 +322,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </h2>
           <p className="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
             Soluções completas e especializadas para atender todas as necessidades do seu projeto
-          </h2>
+          </p>
           
           <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             {project.services.map((service, index) => (
