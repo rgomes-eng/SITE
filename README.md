@@ -9,6 +9,7 @@ Site institucional da RGOMES Engenharia, empresa de engenharia civil em Manaus. 
 - **Tailwind CSS**
 - **Framer Motion** (animações)
 - **Supabase** (PostgreSQL + BaaS)
+- **Resend** (envio de emails)
 - **React Hook Form**
 - **React Icons**
 
@@ -17,6 +18,7 @@ Site institucional da RGOMES Engenharia, empresa de engenharia civil em Manaus. 
 - Node.js 18+
 - Conta no [Supabase](https://supabase.com)
 - Conta no [Vercel](https://vercel.com)
+- Conta no [Resend](https://resend.com) (para envio de emails)
 
 ## Configuração Local
 
@@ -49,7 +51,22 @@ A logomarca já possui fundo transparente e será exibida no header e footer.
    - **anon key** → `NEXT_PUBLIC_SUPABASE_ANON_KEY`
    - **service_role key** → `SUPABASE_SERVICE_ROLE_KEY` (manter em segredo)
 
-### 4. Variáveis de ambiente
+### 4. Configurar Resend (Email)
+
+1. Acesse [resend.com](https://resend.com) e crie uma conta (3000 emails/mês grátis).
+2. Verifique seu domínio:
+   - Vá em **Domains** → **Add Domain**
+   - Adicione `rgomesengenharia.com` (ou use `onboarding@resend.dev` para testes)
+   - Siga as instruções de DNS fornecidas pelo Resend
+3. Após verificação do domínio, copie a **API Key**:
+   - Vá em **API Keys** → Crie uma nova chave
+   - Copie a chave para `RESEND_API_KEY`
+4. Configure o email remetente:
+   - `RESEND_FROM_EMAIL=contato@rgomesengenharia.com` (ou `onboarding@resend.dev` para testes)
+
+> **Nota:** O formulário de contato funciona mesmo sem o Resend configurado, mas não enviará emails automaticamente. Os contatos serão salvos no Supabase (se configurado) ou logados no console.
+
+### 5. Variáveis de ambiente
 
 ```bash
 # Copie o exemplo
@@ -60,13 +77,16 @@ cp .env.local.example .env.local
 
 Variáveis necessárias:
 
-| Variável | Descrição |
-|----------|-----------|
-| `NEXT_PUBLIC_SUPABASE_URL` | URL do projeto Supabase |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Chave anônima (pública) |
-| `SUPABASE_SERVICE_ROLE_KEY` | Chave service role (para API de contatos) |
-| `NEXT_PUBLIC_SITE_URL` | URL do site (ex: https://rgomes-engenharia.vercel.app) |
-| `NEXT_PUBLIC_WHATSAPP_NUMBER` | Número WhatsApp (55 + DDD + número, sem espaços) |
+| Variável | Descrição | Obrigatório |
+|----------|-----------|-------------|
+| `NEXT_PUBLIC_SUPABASE_URL` | URL do projeto Supabase | ✅ Sim |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Chave anônima (pública) | ✅ Sim |
+| `SUPABASE_SERVICE_ROLE_KEY` | Chave service role (para API de contatos) | ✅ Sim |
+| `NEXT_PUBLIC_SITE_URL` | URL do site (ex: https://rgomes-engenharia.vercel.app) | ✅ Sim |
+| `WHATSAPP_NUMBER` | Número WhatsApp (55 + DDD + número, sem espaços) | ✅ Sim |
+| `CONTACT_EMAIL` | Email de destino dos contatos | ✅ Sim |
+| `RESEND_API_KEY` | API Key do Resend (envio de emails) | ⚠️ Opcional |
+| `RESEND_FROM_EMAIL` | Email remetente (deve estar verificado no Resend) | ⚠️ Opcional |
 
 ### 5. Executar em desenvolvimento
 
@@ -154,9 +174,11 @@ Para adicionar projetos e depoimentos, use o painel do Supabase (Table Editor) o
 ## Pós-Deploy - Checklist
 
 - [ ] Testar formulário de contato (verificar leads no Supabase)
+- [ ] Testar envio de email (verificar se chega em `contato@rgomesengenharia.com`)
 - [ ] Configurar domínio personalizado no Vercel
 - [ ] Atualizar `NEXT_PUBLIC_SITE_URL` com o domínio real
 - [ ] Adicionar domínio em Supabase → Authentication → URL Configuration
+- [ ] Verificar domínio no Resend (para envio de emails)
 - [ ] Cadastrar projetos reais na tabela `projects`
 - [ ] Adicionar fotos via Supabase Storage (obter URLs públicas)
 - [ ] Inserir depoimentos na tabela `testimonials`
