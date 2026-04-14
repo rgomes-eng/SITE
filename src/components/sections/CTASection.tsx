@@ -6,8 +6,7 @@ import { FaArrowRight, FaWhatsapp } from 'react-icons/fa'
 import Container from '@/components/common/Container'
 import { useLanguage } from '@/context/LanguageContext'
 
-const whatsappNumber =
-  process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '5592981242509'
+const whatsappNumber = '5592981242509'
 
 export default function CTASection() {
   const { language } = useLanguage()

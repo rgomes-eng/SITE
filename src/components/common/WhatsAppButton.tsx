@@ -3,7 +3,7 @@
 import { FaWhatsapp } from 'react-icons/fa'
 import { useState, useEffect } from 'react'
 
-const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '5592981242509'
+const whatsappNumber = '5592981242509'
 
 export default function WhatsAppButton() {
   const [visible, setVisible] = useState(false)
