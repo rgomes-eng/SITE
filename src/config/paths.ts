@@ -8,13 +8,13 @@ export const PATHS = {
   HOME: '/',
   ABOUT: '/sobre',
   CONTACT: '/contato',
-  PROJECTS: '/projetos',
+  PROJECTS: '/projects',
   SERVICES: '/servicos',
   WORK_WITH_US: '/trabalhe-conosco',
   QUICK_SERVICES: '/servicos/quick-services',
-  
+
   // Dynamic routes
-  PROJECT_DETAIL: (slug: string) => `/projetos/${slug}`,
+  PROJECT_DETAIL: (slug: string) => `/projects/${slug}`,
   SERVICE_DETAIL: (slug: string) => `/servicos/${slug}`,
 } as const
 

@@ -84,7 +84,7 @@ export default function ProjectsClient({ projects }: { projects: any[] }) {
             }) => (
               <Link
                 key={project.id}
-                href={`/projetos/${project.slug}`}
+                href={`/projects/${project.slug}`}
                 className="block group overflow-hidden rounded-xl bg-background-card border border-border hover:border-primary/50 transition-all"
               >
                 <div className="aspect-video bg-secondary/30 relative overflow-hidden">

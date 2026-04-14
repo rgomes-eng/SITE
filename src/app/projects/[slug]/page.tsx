@@ -208,6 +208,97 @@ const projectContent: Record<string, {
       'Substituição de revestimentos',
       'Conservação de áreas comuns'
     ]
+  },
+  'condominio-residencial': {
+    title: 'Condomínio Residencial',
+    subtitle: 'Complexos residenciais completos e modernos',
+    description: 'Desenvolvemos condomínios residenciais completos, com infraestrutura moderna e áreas comuns bem planejadas. Nossos projetos priorizam a qualidade de vida dos moradores, segurança e valorização do patrimônio.',
+    image_url: '/illustrations/SITE_OBRAGRANDE2.png',
+    features: [
+      'Projetos arquitetônicos integrados',
+      'Infraestrutura completa de utilidades',
+      'Áreas comuns e lazer',
+      'Sistema de segurança integrado',
+      'Gestão sustentável de resíduos',
+      'Acessibilidade total'
+    ],
+    services: [
+      'Projeto arquitetônico e urbanístico do condomínio',
+      'Construção de unidades habitacionais personalizadas',
+      'Infraestrutura de água, esgoto e energia elétrica',
+      'Pavimentação de vias internas e estacionamentos',
+      'Áreas comuns: salão de festas, academia, playground',
+      'Sistemas de segurança: CFTV, controle de acesso, alarmes',
+      'Paisagismo e áreas verdes comuns',
+      'Gestão de documentação e aprovações em órgãos públicos'
+    ],
+    differentials: [
+      'Experiência em condomínios de pequeno e grande porte',
+      'Planejamento integrado de áreas comuns e privativas',
+      'Foco em sustentabilidade e eficiência energética',
+      'Equipe especializada em obras simultâneas',
+      'Tecnologia BIM para visualização 3D do empreendimento',
+      'Acompanhamento rigoroso de cronograma e qualidade',
+      'Pós-entrega com suporte à administração do condomínio'
+    ],
+    gallery: [
+      '/illustrations/SITE_OBRAGRANDE2.png',
+      '/illustrations/SITE_Residencial3_16x9.png',
+      '/illustrations/HomeNight.png'
+    ],
+    details: [
+      'Planejamento urbanístico integrado',
+      'Construção simultânea de múltiplas unidades',
+      'Infraestrutura de utilidades centralizada',
+      'Áreas comuns equipadas e decoradas',
+      'Sistemas de segurança e automação'
+    ]
+  },
+  'centro-comercial': {
+    title: 'Centro Comercial',
+    subtitle: 'Ampliação e modernização de espaços comerciais',
+    description: 'Especialistas em projetos comerciais, realizamos ampliações, reformas e adequações de shoppings, lojas e galpões comerciais. Nossas obras minimizam impactos na operação do negócio e entregam resultados que valorizam o imóvel.',
+    image_url: '/illustrations/SITE_ManutençãoShopping.png',
+    features: [
+      'Ampliação de áreas comerciais',
+      'Reformas em áreas operacionais',
+      'Modernização de fachadas',
+      'Adequação a normas técnicas',
+      'Obras com mínima parada operacional',
+      'Gestão de cronograma rigorosa'
+    ],
+    services: [
+      'Levantamento técnico e diagnóstico do espaço existente',
+      'Projeto de ampliação de área construída',
+      'Reformas de lojas, quiosques e âncoras',
+      'Modernização de fachadas e vitrines',
+      'Reformas de praças de alimentação e áreas comuns',
+      'Adequação de acessibilidade e normas técnicas',
+      'Instalações elétricas e de climatização comerciais',
+      'Pisos e revestimentos de alta resistência',
+      'Sinalização e comunicação visual integrada'
+    ],
+    differentials: [
+      'Experiência em obras em shoppings e centros comerciais',
+      'Execução em horários noturnos e de menor movimento',
+      'Planejamento para não interromper operações',
+      'Equipe treinada para trabalhar em áreas abertas ao público',
+      'Coordenação com administradoras de shoppings',
+      'Materiais de alta durabilidade para área de grande fluxo',
+      'Entrega rápida sem comprometer a qualidade'
+    ],
+    gallery: [
+      '/illustrations/SITE_ManutençãoShopping.png',
+      '/illustrations/[Projetos]Reforma Corporativa.png',
+      '/illustrations/MeetingRoom.png'
+    ],
+    details: [
+      'Diagnóstico técnico completo do espaço',
+      'Projeto de ampliação ou reforma',
+      'Execução em horários especiais',
+      'Instalações elétricas e climatização',
+      'Acabamentos de alta resistência'
+    ]
   }
 }
 
@@ -470,5 +561,7 @@ export async function generateStaticParams() {
     { slug: 'reforma-corporativa' },
     { slug: 'infraestrutura-industrial' },
     { slug: 'manutencao-predial' },
+    { slug: 'condominio-residencial' },
+    { slug: 'centro-comercial' },
   ]
 }
