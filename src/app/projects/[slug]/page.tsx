@@ -354,9 +354,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           {project.description}
         </p>
 
-        {/* 3. Imagem ilustrativa - aumentada 25% e alinhada à esquerda */}
+        {/* 3. Imagem ilustrativa - largura total do container */}
         <div className="mb-12">
-          <div className="relative w-full max-w-xl aspect-video rounded-xl overflow-hidden bg-white/5 ring-1 ring-white/10">
+          <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-white/5 ring-1 ring-white/10">
             <Image
               src={project.image_url}
               alt={project.title}
