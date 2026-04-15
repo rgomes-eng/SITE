@@ -185,10 +185,10 @@ export default function Footer() {
               {new Date().getFullYear()} RGOMES Engenharia. {copyright}
             </p>
             <div className="flex gap-6 text-sm">
-              <Link href="#" className="text-gray-400 hover:text-primary transition-colors">
+              <Link href="/politica-de-privacidade" className="text-gray-400 hover:text-primary transition-colors">
                 {privacyLabel}
               </Link>
-              <Link href="#" className="text-gray-400 hover:text-primary transition-colors">
+              <Link href="/termos-de-uso" className="text-gray-400 hover:text-primary transition-colors">
                 {termsLabel}
               </Link>
             </div>
