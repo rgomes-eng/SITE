@@ -354,9 +354,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           {project.description}
         </p>
 
-        {/* 3. Imagem ilustrativa menor */}
+        {/* 3. Imagem ilustrativa - aumentada 25% e alinhada à esquerda */}
         <div className="mb-12">
-          <div className="relative w-full max-w-md mx-auto aspect-video rounded-xl overflow-hidden bg-white/5 ring-1 ring-white/10">
+          <div className="relative w-full max-w-xl aspect-video rounded-xl overflow-hidden bg-white/5 ring-1 ring-white/10">
             <Image
               src={project.image_url}
               alt={project.title}
@@ -367,35 +367,38 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </div>
         </div>
 
-        {/* 4. Serviços Oferecidos - Bullets */}
-        <section className="mb-10">
-          <h2 className="text-xl font-bold text-white mb-6 pb-2 border-b border-white/10">
-            Serviços Oferecidos
-          </h2>
-          <ul className="space-y-3">
-            {project.services.map((service, index) => (
-              <li key={index} className="flex items-start gap-3">
-                <FaCheckCircle className="text-primary flex-shrink-0 mt-1" size={16} />
-                <span className="text-gray-300">{service}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
+        {/* 4. Serviços e Diferenciais em duas colunas */}
+        <div className="grid md:grid-cols-2 gap-8 mb-12">
+          {/* Serviços Oferecidos */}
+          <section>
+            <h2 className="text-xl font-bold text-white mb-6 pb-2 border-b border-white/10">
+              Serviços Oferecidos
+            </h2>
+            <ul className="space-y-3">
+              {project.services.map((service, index) => (
+                <li key={index} className="flex items-start gap-3">
+                  <FaCheckCircle className="text-primary flex-shrink-0 mt-1" size={16} />
+                  <span className="text-gray-300">{service}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
 
-        {/* 5. Diferenciais - Bullets */}
-        <section className="mb-12">
-          <h2 className="text-xl font-bold text-white mb-6 pb-2 border-b border-white/10">
-            Diferenciais
-          </h2>
-          <ul className="space-y-3">
-            {project.differentials.map((differential, index) => (
-              <li key={index} className="flex items-start gap-3">
-                <FaCheckCircle className="text-primary flex-shrink-0 mt-1" size={16} />
-                <span className="text-gray-300">{differential}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
+          {/* Diferenciais */}
+          <section>
+            <h2 className="text-xl font-bold text-white mb-6 pb-2 border-b border-white/10">
+              Diferenciais
+            </h2>
+            <ul className="space-y-3">
+              {project.differentials.map((differential, index) => (
+                <li key={index} className="flex items-start gap-3">
+                  <FaCheckCircle className="text-primary flex-shrink-0 mt-1" size={16} />
+                  <span className="text-gray-300">{differential}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </div>
 
         {/* CTA Simples */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8 border-t border-white/10">
