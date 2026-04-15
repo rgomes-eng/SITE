@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { Resend } from 'resend'
 
 export async function POST(request: NextRequest) {
   try {
@@ -112,23 +113,74 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Enviar email de notificação
+    // Enviar email de notificação via Resend
     const contactEmail = process.env.CONTACT_EMAIL || 'contato@rgomesengenharia.com'
     
     try {
-      // Se estiver configurado serviço de email (Resend, SendGrid, etc.)
-      // Aqui seria implementado o envio real de email
-      console.log('Email de currículo enviado para:', contactEmail)
-      console.log('Detalhes:', { 
-        name: data.name, 
-        email: data.email, 
-        phone: data.phone, 
-        position: data.position,
-        resumeUrl: publicUrl 
-      })
+      const resend = new Resend(process.env.RESEND_API_KEY)
+      
+      // Verificar se Resend está configurado
+      if (process.env.RESEND_API_KEY) {
+        await resend.emails.send({
+          from: 'RGOMES Engenharia <contato@rgomesengenharia.com>',
+          to: contactEmail,
+          subject: `Novo currículo: ${data.name} - ${data.position}`,
+          html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #333;">
+              <h2 style="color: #1a365d; border-bottom: 2px solid #3182ce; padding-bottom: 10px;">
+                Novo currículo recebido - Trabalhe Conosco
+              </h2>
+              
+              <div style="background: #f7fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h3 style="color: #2d3748; margin-top: 0;">Informações do candidato</h3>
+                <p><strong>Nome:</strong> ${data.name}</p>
+                <p><strong>Email:</strong> ${data.email}</p>
+                <p><strong>Telefone:</strong> ${data.phone}</p>
+                <p><strong>Cargo desejado:</strong> ${data.position}</p>
+                
+                ${data.experience ? `<p><strong>Experiência:</strong> ${data.experience}</p>` : ''}
+                ${data.education ? `<p><strong>Formação:</strong> ${data.education}</p>` : ''}
+                ${data.message ? `<p><strong>Mensagem:</strong> ${data.message}</p>` : ''}
+              </div>
+              
+              <div style="background: #e6fffa; padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #3182ce;">
+                <h3 style="color: #2d3748; margin-top: 0;">📎 Currículo</h3>
+                <p>Link para download do currículo:</p>
+                <a href="${publicUrl}" 
+                   style="display: inline-block; background: #3182ce; color: white; padding: 12px 24px; 
+                          text-decoration: none; border-radius: 6px; margin-top: 10px;">
+                  Baixar currículo
+                </a>
+              </div>
+              
+              <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0; color: #718096; font-size: 12px;">
+                <p><strong>Consentimentos LGPD:</strong></p>
+                <ul style="margin: 0; padding-left: 20px;">
+                  <li>Compartilhamento de dados: ${data.data_sharing_consent ? '✅ Aceito' : '❌ Não aceito'}</li>
+                  <li>Política de Privacidade: ${data.privacy_policy_consent ? '✅ Aceito' : '❌ Não aceito'}</li>
+                  <li>Política de Cookies: ${data.cookie_policy_consent ? '✅ Aceito' : '❌ Não aceito'}</li>
+                </ul>
+                <p style="margin-top: 15px;">
+                  Recebido em: ${new Date().toLocaleString('pt-BR')}
+                </p>
+              </div>
+            </div>
+          `
+        })
+        
+        console.log('✅ Email enviado com sucesso para:', contactEmail)
+      } else {
+        console.log('⚠️ RESEND_API_KEY não configurado. Email não enviado.')
+        console.log('Dados do candidato:', { 
+          name: data.name, 
+          email: data.email, 
+          position: data.position,
+          resumeUrl: publicUrl 
+        })
+      }
     } catch (emailError) {
-      console.error('Erro ao enviar email:', emailError)
-      // Não falhar se o email não for enviado, apenas logar o erro
+      console.error('❌ Erro ao enviar email:', emailError)
+      // Não falha o processo se o email não for enviado - dados já estão salvos
     }
 
     return NextResponse.json({
