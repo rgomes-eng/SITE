@@ -2,16 +2,7 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-import { createClient } from '@/lib/supabase/server'
-import { FaBuilding, FaHammer, FaTools, FaProjectDiagram, FaLaptopCode, FaArrowLeft, FaArrowRight } from 'react-icons/fa'
-
-const iconMap: Record<string, typeof FaBuilding> = {
-  FaBuilding: FaBuilding,
-  FaHammer: FaHammer,
-  FaTools: FaTools,
-  FaProjectDiagram: FaProjectDiagram,
-  FaLaptopCode: FaLaptopCode,
-}
+import { FaCheckCircle, FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 
 const projectContent: Record<string, { 
   title: string
@@ -311,7 +302,7 @@ interface ProjectPageProps {
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
   const { slug } = await params
   const project = projectContent[slug]
-  
+
   if (!project) {
     return {
       title: 'Projeto não encontrado',
@@ -333,224 +324,96 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params
   const project = projectContent[slug]
-  
+
   if (!project) {
     notFound()
   }
 
   return (
-    <div className="min-h-screen bg-background-dark">
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-16">
-        <div className="absolute inset-0 bg-gradient-to-br from-background-dark via-secondary-dark/50 to-background-dark" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/12 via-transparent to-transparent" />
-        
-        <div className="relative z-10 container mx-auto px-6">
-          <Link
-            href="/projects"
-            className="inline-flex items-center gap-2 text-gray-400 hover:text-primary transition-colors mb-8"
-          >
-            <FaArrowLeft size={16} />
-            Voltar para Projetos
-          </Link>
+    <div className="min-h-screen bg-background-dark pt-24 pb-16">
+      <div className="container mx-auto px-4 max-w-4xl">
+        {/* Breadcrumb */}
+        <Link
+          href="/projects"
+          className="inline-flex items-center gap-2 text-gray-400 hover:text-primary transition-colors mb-8"
+        >
+          <FaArrowLeft size={14} />
+          <span>Voltar para Projetos</span>
+        </Link>
 
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                {project.title}
-              </h1>
-              <p className="text-xl text-gray-300 mb-8">
-                {project.subtitle}
-              </p>
-              <p className="text-gray-400 leading-relaxed">
-                {project.description}
-              </p>
-            </div>
-            
-            <div className="relative">
-              <div className="aspect-video rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10">
-                <Image
-                  src={project.image_url}
-                  alt={project.title}
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
-            </div>
+        {/* 1. Título da página */}
+        <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          {project.title}
+        </h1>
+
+        {/* 2. Subtítulo / Mensagem introdutória */}
+        <p className="text-xl text-primary font-medium mb-4">
+          {project.subtitle}
+        </p>
+        <p className="text-gray-400 leading-relaxed mb-8">
+          {project.description}
+        </p>
+
+        {/* 3. Imagem ilustrativa menor */}
+        <div className="mb-12">
+          <div className="relative w-full max-w-md mx-auto aspect-video rounded-xl overflow-hidden bg-white/5 ring-1 ring-white/10">
+            <Image
+              src={project.image_url}
+              alt={project.title}
+              fill
+              className="object-cover"
+              priority
+            />
           </div>
         </div>
-      </section>
 
-      {/* Features Section */}
-      <section className="py-16 bg-secondary-dark/30">
-        <div className="container mx-auto px-6">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">
-            Características Principais
-          </h2>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {project.features.map((feature, index) => (
-              <div
-                key={index}
-                className="bg-white/5 ring-1 ring-white/10 rounded-xl p-6"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
-                  <p className="text-gray-300">{feature}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Services Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-6">
-          <h2 className="text-3xl font-bold text-white mb-4 text-center">
+        {/* 4. Serviços Oferecidos - Bullets */}
+        <section className="mb-10">
+          <h2 className="text-xl font-bold text-white mb-6 pb-2 border-b border-white/10">
             Serviços Oferecidos
           </h2>
-          <p className="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
-            Soluções completas e especializadas para atender todas as necessidades do seu projeto
-          </p>
-          
-          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+          <ul className="space-y-3">
             {project.services.map((service, index) => (
-              <div
-                key={index}
-                className="bg-white/5 ring-1 ring-white/10 rounded-xl p-6 hover:ring-primary/30 transition-colors"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <FaTools className="text-primary" size={16} />
-                  </div>
-                  <div>
-                    <h3 className="text-white font-semibold mb-2">
-                      Serviço {index + 1}
-                    </h3>
-                    <p className="text-gray-300 text-sm">{service}</p>
-                  </div>
-                </div>
-              </div>
+              <li key={index} className="flex items-start gap-3">
+                <FaCheckCircle className="text-primary flex-shrink-0 mt-1" size={16} />
+                <span className="text-gray-300">{service}</span>
+              </li>
             ))}
-          </div>
-        </div>
-      </section>
+          </ul>
+        </section>
 
-      {/* Differentials Section */}
-      <section className="py-16 bg-secondary-dark/30">
-        <div className="container mx-auto px-6">
-          <h2 className="text-3xl font-bold text-white mb-4 text-center">
-            Diferenciais da RGOMES ENGENHARIA
+        {/* 5. Diferenciais - Bullets */}
+        <section className="mb-12">
+          <h2 className="text-xl font-bold text-white mb-6 pb-2 border-b border-white/10">
+            Diferenciais
           </h2>
-          <p className="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
-            Por que escolher a RGOMES para realizar seu projeto
-          </p>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <ul className="space-y-3">
             {project.differentials.map((differential, index) => (
-              <div
-                key={index}
-                className="bg-white/5 ring-1 ring-white/10 rounded-xl p-6 hover:ring-primary/30 transition-colors"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <FaProjectDiagram className="text-primary" size={16} />
-                  </div>
-                  <div>
-                    <h3 className="text-white font-semibold mb-2">
-                      Diferencial {index + 1}
-                    </h3>
-                    <p className="text-gray-300 text-sm">{differential}</p>
-                  </div>
-                </div>
-              </div>
+              <li key={index} className="flex items-start gap-3">
+                <FaCheckCircle className="text-primary flex-shrink-0 mt-1" size={16} />
+                <span className="text-gray-300">{differential}</span>
+              </li>
             ))}
-          </div>
-        </div>
-      </section>
+          </ul>
+        </section>
 
-      {/* Gallery Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-6">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">
-            Galeria do Projeto
-          </h2>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {project.gallery.map((image, index) => (
-              <div
-                key={index}
-                className="aspect-video rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10"
-              >
-                <Image
-                  src={image}
-                  alt={`${project.title} - Imagem ${index + 1}`}
-                  fill
-                  className="object-cover hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-            ))}
-          </div>
+        {/* CTA Simples */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8 border-t border-white/10">
+          <Link
+            href="/contato"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg transition-colors"
+          >
+            Solicitar Orçamento
+            <FaArrowRight size={16} />
+          </Link>
+          <Link
+            href="/projects"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/5 hover:bg-white/10 ring-1 ring-white/10 text-gray-100 font-semibold rounded-lg transition-colors"
+          >
+            Ver Outros Projetos
+          </Link>
         </div>
-      </section>
-
-      {/* Details Section */}
-      <section className="py-16 bg-secondary-dark/30">
-        <div className="container mx-auto px-6">
-          <h2 className="text-3xl font-bold text-white mb-12 text-center">
-            Detalhes da Execução
-          </h2>
-          
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {project.details.map((detail, index) => (
-              <div
-                key={index}
-                className="flex items-start gap-4"
-              >
-                <div className="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <FaTools className="text-primary" size={16} />
-                </div>
-                <div>
-                  <h3 className="text-white font-semibold mb-2">
-                    Etapa {index + 1}
-                  </h3>
-                  <p className="text-gray-300">{detail}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold text-white mb-6">
-            Transforme seu projeto em realidade
-          </h2>
-          <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-            Entre em contato conosco para discutir como podemos ajudar a realizar seu projeto com a qualidade e excelência que só a RGOMES Engenharia oferece.
-          </p>
-          
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link
-              href="/trabalhe-conosco"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary-dark text-white font-semibold rounded-xl transition-colors"
-            >
-              Solicitar Orçamento
-              <FaArrowRight size={16} />
-            </Link>
-            <Link
-              href="/projects"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-white/5 hover:bg-white/10 ring-1 ring-white/10 hover:ring-white/15 text-gray-100 font-semibold rounded-xl transition-colors"
-            >
-              Ver Outros Projetos
-            </Link>
-          </div>
-        </div>
-      </section>
+      </div>
     </div>
   )
 }
