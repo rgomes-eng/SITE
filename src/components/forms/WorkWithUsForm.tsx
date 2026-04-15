@@ -3,8 +3,8 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { motion } from 'framer-motion'
-import { FaUpload, FaBriefcase, FaGraduationCap, FaEnvelope, FaPhone, FaUser } from 'react-icons/fa'
-import { DOCUMENTS, getDocumentUrl, getDocumentTitle } from '@/utils/documents'
+import { FaUpload, FaBriefcase, FaGraduationCap, FaEnvelope, FaPhone, FaUser, FaExternalLinkAlt } from 'react-icons/fa'
+import PolicyModal from '@/components/dialogs/PolicyModal'
 
 interface FormData {
   name: string
@@ -36,13 +36,19 @@ export default function WorkWithUsForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const [fileName, setFileName] = useState('')
+  
+  // Estados para modais de políticas
+  const [privacyModalOpen, setPrivacyModalOpen] = useState(false)
+  const [cookiesModalOpen, setCookiesModalOpen] = useState(false)
+  const [termsModalOpen, setTermsModalOpen] = useState(false)
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-    watch
+    watch,
+    setValue
   } = useForm<FormData>()
 
   const file = watch('file')
@@ -327,14 +333,14 @@ export default function WorkWithUsForm() {
             />
             <label htmlFor="privacy_policy_consent" className="text-sm text-gray-300 leading-relaxed">
               <span className="text-white font-medium">Li e aceito os Termos e Condições</span> e a{' '}
-              <a 
-                href={getDocumentUrl('TERMS_AND_CONDITIONS')}
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-primary hover:text-primary-light underline font-medium"
+              <button
+                type="button"
+                onClick={() => setPrivacyModalOpen(true)}
+                className="text-primary hover:text-primary-light underline font-medium inline-flex items-center gap-1"
               >
                 Política de Privacidade e Proteção de Dados (LGPD)
-              </a>
+                <FaExternalLinkAlt size={10} />
+              </button>
               {' '}autorizando o tratamento dos meus dados pessoais conforme descrito.
             </label>
           </div>
@@ -353,19 +359,31 @@ export default function WorkWithUsForm() {
             />
             <label htmlFor="cookie_policy_consent" className="text-sm text-gray-300 leading-relaxed">
               <span className="text-white font-medium">Li e aceito a Política de Cookies</span> para uso de cookies essenciais e de analytics no site.{' '}
-              <a 
-                href={getDocumentUrl('COOKIE_POLICY')}
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-primary hover:text-primary-light underline font-medium"
+              <button
+                type="button"
+                onClick={() => setCookiesModalOpen(true)}
+                className="text-primary hover:text-primary-light underline font-medium inline-flex items-center gap-1"
               >
                 Ver política completa
-              </a>
+                <FaExternalLinkAlt size={10} />
+              </button>
             </label>
           </div>
           {errors.cookie_policy_consent && (
             <p className="text-red-400 text-sm">{errors.cookie_policy_consent.message}</p>
           )}
+
+          {/* Links adicionais para visualização */}
+          <div className="flex flex-wrap gap-3 pt-2 border-t border-white/10 mt-3">
+            <button
+              type="button"
+              onClick={() => setTermsModalOpen(true)}
+              className="text-xs text-gray-400 hover:text-primary transition-colors inline-flex items-center gap-1"
+            >
+              <FaExternalLinkAlt size={10} />
+              Termos e Condições - Trabalhe Conosco
+            </button>
+          </div>
 
           <div className="text-xs text-gray-400 mt-3">
             <p>Seus dados serão tratados em conformidade com a Lei Federal nº 13.709/2018 (LGPD). Você pode solicitar a exclusão de seus dados a qualquer momento através do e-mail privacidade@rgomesengenharia.com.</p>
@@ -404,6 +422,43 @@ export default function WorkWithUsForm() {
             )}
           </button>
         </div>
+
+        {/* Modais de Políticas */}
+        <PolicyModal
+          isOpen={privacyModalOpen}
+          onClose={() => setPrivacyModalOpen(false)}
+          type="privacy"
+          onAccept={() => {
+            setValue('privacy_policy_consent', true)
+            setPrivacyModalOpen(false)
+          }}
+          onReject={() => {
+            setValue('privacy_policy_consent', false)
+            setPrivacyModalOpen(false)
+          }}
+        />
+
+        <PolicyModal
+          isOpen={cookiesModalOpen}
+          onClose={() => setCookiesModalOpen(false)}
+          type="cookies"
+          onAccept={() => {
+            setValue('cookie_policy_consent', true)
+            setCookiesModalOpen(false)
+          }}
+          onReject={() => {
+            setValue('cookie_policy_consent', false)
+            setCookiesModalOpen(false)
+          }}
+        />
+
+        <PolicyModal
+          isOpen={termsModalOpen}
+          onClose={() => setTermsModalOpen(false)}
+          type="terms"
+          onAccept={() => setTermsModalOpen(false)}
+          onReject={() => setTermsModalOpen(false)}
+        />
       </form>
     </div>
   )
