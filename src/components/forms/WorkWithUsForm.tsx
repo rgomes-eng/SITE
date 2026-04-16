@@ -5,6 +5,8 @@ import { useForm } from 'react-hook-form'
 import { motion } from 'framer-motion'
 import { FaUpload, FaBriefcase, FaGraduationCap, FaEnvelope, FaPhone, FaUser, FaExternalLinkAlt } from 'react-icons/fa'
 import PolicyModal from '@/components/dialogs/PolicyModal'
+import { JOB_POSITIONS } from '@/constants/positions'
+import { LIMITS, CONTACT } from '@/constants/app'
 
 interface FormData {
   name: string
@@ -19,18 +21,6 @@ interface FormData {
   privacy_policy_consent: boolean
   cookie_policy_consent: boolean
 }
-
-const positions = [
-  'Engenheiro Civil',
-  'Arquiteto',
-  'Técnico em Edificações',
-  'Mestre de Obras',
-  'Engenheiro de Segurança',
-  'Orçamentista',
-  'Desenhista/Projetista',
-  'Estagiário',
-  'Outro'
-]
 
 export default function WorkWithUsForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -206,7 +196,7 @@ export default function WorkWithUsForm() {
               suppressHydrationWarning={true}
             >
               <option value="" className="bg-background-card">Selecione...</option>
-              {positions.map(pos => (
+              {JOB_POSITIONS.map(pos => (
                 <option key={pos} value={pos} className="bg-background-card">{pos}</option>
               ))}
             </select>
