@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useState, FormEvent } from 'react'
 import {
   FaBolt,
   FaPlug,
@@ -17,6 +17,8 @@ import {
   FaBrush,
   FaWater,
   FaGlasses,
+  FaCheckCircle,
+  FaSpinner,
 } from 'react-icons/fa'
 import Image from 'next/image'
 import Container from '@/components/common/Container'
@@ -77,6 +79,55 @@ export default function QuickServicesPage() {
   const requestQuoteLabel = 'Solicitar orçamento'
 
   const [selectedService, setSelectedService] = useState<string | null>(null)
+  const [name, setName] = useState('')
+  const [phone, setPhone] = useState('')
+  const [email, setEmail] = useState('')
+  const [message, setMessage] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setError(null)
+
+    const selectedServiceTitle = selectedService 
+      ? quickServices.find(s => s.id === selectedService)?.title 
+      : 'Não selecionado'
+
+    const fullMessage = `Serviço Quick Service: ${selectedServiceTitle}\n\nDescrição: ${message}`
+
+    try {
+      const res = await fetch('/api/contacts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          email,
+          phone: phone || undefined,
+          subject: `Orçamento Quick Service - ${selectedServiceTitle || 'Geral'}`,
+          message: fullMessage,
+        }),
+      })
+
+      if (!res.ok) {
+        const json = await res.json().catch(() => ({}))
+        throw new Error(json.error || 'Erro ao enviar. Tente novamente.')
+      }
+
+      setSubmitted(true)
+      setName('')
+      setPhone('')
+      setEmail('')
+      setMessage('')
+      setSelectedService(null)
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Erro ao enviar. Tente novamente.')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   return (
     <>
@@ -179,14 +230,26 @@ export default function QuickServicesPage() {
                 {contactTitle}
               </h2>
 
-              <form className="space-y-6">
+              {submitted ? (
+                <div className="p-6 rounded-xl bg-green-500/20 border border-green-500/50 text-center">
+                  <FaCheckCircle className="text-green-500 mx-auto mb-4" size={48} />
+                  <h3 className="text-xl font-semibold text-white mb-2">
+                    Solicitação enviada com sucesso!
+                  </h3>
+                  <p className="text-gray-300">Obrigado pelo contato. Nossa equipe retornará em breve pelo email ou WhatsApp.</p>
+                </div>
+              ) : (
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Nome
+                      Nome *
                     </label>
                     <input
                       type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      required
                       className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-primary/50 transition-colors"
                       placeholder="Seu nome"
                     />
@@ -197,6 +260,8 @@ export default function QuickServicesPage() {
                     </label>
                     <input
                       type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
                       className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-primary/50 transition-colors"
                       placeholder="Seu telefone"
                     />
@@ -205,10 +270,13 @@ export default function QuickServicesPage() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">
-                      E-mail
+                      E-mail *
                     </label>
                     <input
                       type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
                       className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-primary/50 transition-colors"
                       placeholder="Seu e-mail"
                   />
@@ -240,19 +308,34 @@ export default function QuickServicesPage() {
                   </label>
                   <textarea
                     rows={4}
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
                     className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-primary/50 transition-colors resize-none"
                     placeholder="Descreva o serviço que você precisa"
                   />
                 </div>
 
+                {error && <p className="text-sm text-red-400">{error}</p>}
+
                 <button
                   type="submit"
-                  className="w-full flex items-center justify-center gap-2 px-8 py-4 bg-primary hover:bg-primary-dark text-white font-semibold rounded-xl transition-colors"
+                  disabled={isSubmitting}
+                  className="w-full flex items-center justify-center gap-2 px-8 py-4 bg-primary hover:bg-primary-dark disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-xl transition-colors"
                 >
-                  {requestQuoteLabel}
-                  <FaArrowRight size={18} />
+                  {isSubmitting ? (
+                    <>
+                      <FaSpinner className="animate-spin" size={18} />
+                      Enviando...
+                    </>
+                  ) : (
+                    <>
+                      {requestQuoteLabel}
+                      <FaArrowRight size={18} />
+                    </>
+                  )}
                 </button>
               </form>
+              )}
             </div>
           </motion.div>
         </Container>
