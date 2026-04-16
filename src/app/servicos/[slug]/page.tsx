@@ -72,7 +72,7 @@ const serviceContent: Record<string, {
     title: 'Gestão de Projetos',
     subtitle: 'Planejamento e acompanhamento técnico especializado',
     description: 'Planejamento e acompanhamento técnico completo para projetos de engenharia civil.',
-    image_url: '/illustrations/HomeNight.png',
+    image_url: '/illustrations/SITE_Gestão2.png',
     features: [
       'Planejamento e cronograma',
       'Controle orçamentário',

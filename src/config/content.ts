@@ -77,7 +77,7 @@ export const CONTENT = {
       title: 'Gestão de Projetos',
       subtitle: 'Planejamento e acompanhamento técnico especializado',
       description: 'Planejamento e acompanhamento técnico completo para projetos de engenharia civil.',
-      image: 'homeNight',
+      image: 'gestao2',
       icon: 'FaProjectDiagram',
       features: [
         'Planejamento e cronograma',

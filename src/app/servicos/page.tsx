@@ -81,7 +81,7 @@ export default async function ServicosPage() {
           title: 'Gestão de Projetos',
           short_description: 'Planejamento e acompanhamento técnico.',
           icon: 'FaProjectDiagram',
-          image_url: '/illustrations/HomeNight.png',
+          image_url: '/illustrations/SITE_Gestão2.png',
         },
         {
           slug: 'quick-services',

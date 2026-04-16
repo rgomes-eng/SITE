@@ -13,6 +13,7 @@ export const IMAGES = {
     reformaFachada: '/illustrations/Reforma_Fachada.png',
     tecnologiaInfra: '/illustrations/SITE_Tecnologia_Infra.png',
     homeNight: '/illustrations/HomeNight.png',
+    gestao2: '/illustrations/SITE_Gestão2.png',
     campoObras: '/illustrations/CampoObrasPagInicial.png',
     
     // Quick Services
