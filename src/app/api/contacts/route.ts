@@ -65,6 +65,11 @@ export async function POST(request: NextRequest) {
     }
 
     // 2. Enviar email com Resend (se configurado)
+    console.log('📧 CONFIGURAÇÃO DE EMAIL:')
+    console.log('   From:', fromEmail)
+    console.log('   To:', toEmail)
+    console.log('   Resend API Key configurada:', resendApiKey ? 'Sim' : 'Não')
+
     if (resendApiKey) {
       try {
         // Email para a empresa
@@ -80,7 +85,9 @@ export async function POST(request: NextRequest) {
           <p><small>Recebido em: ${new Date().toLocaleString('pt-BR')}</small></p>
         `
 
-        await fetch('https://api.resend.com/emails', {
+        console.log('📤 Enviando email para empresa:', toEmail)
+
+        const adminEmailResponse = await fetch('https://api.resend.com/emails', {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${resendApiKey}`,
@@ -93,6 +100,13 @@ export async function POST(request: NextRequest) {
             html: adminEmailHtml,
           }),
         })
+
+        if (!adminEmailResponse.ok) {
+          const errorData = await adminEmailResponse.text()
+          console.error('❌ Erro ao enviar email para empresa:', adminEmailResponse.status, errorData)
+        } else {
+          console.log('✅ Email para empresa enviado com sucesso')
+        }
 
         // Email de confirmação para o usuário
         const userEmailHtml = `
@@ -112,7 +126,9 @@ export async function POST(request: NextRequest) {
           <p><small>Este é um email automático. Por favor, não responda diretamente.</small></p>
         `
 
-        await fetch('https://api.resend.com/emails', {
+        console.log('📤 Enviando email de confirmação para usuário:', email)
+
+        const userEmailResponse = await fetch('https://api.resend.com/emails', {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${resendApiKey}`,
@@ -126,8 +142,15 @@ export async function POST(request: NextRequest) {
           }),
         })
 
+        if (!userEmailResponse.ok) {
+          const errorData = await userEmailResponse.text()
+          console.error('❌ Erro ao enviar email de confirmação:', userEmailResponse.status, errorData)
+        } else {
+          console.log('✅ Email de confirmação enviado com sucesso')
+        }
+
         emailSent = true
-        console.log('✅ Emails enviados com sucesso')
+        console.log('✅ Processo de email concluído')
       } catch (emailError) {
         console.error('Email sending error:', emailError)
       }
@@ -147,6 +170,9 @@ export async function POST(request: NextRequest) {
     console.log('Status:', {
       savedToDatabase,
       emailSent,
+      emailDestino: toEmail,
+      emailRemetente: fromEmail,
+      resendConfigurado: !!resendApiKey,
       whatsappLink: `https://wa.me/5592981242509?text=${encodeURIComponent(`Olá! Recebi seu contato de ${name}. Como posso ajudar?`)}`
     })
     console.log('========================================')
@@ -158,6 +184,8 @@ export async function POST(request: NextRequest) {
       details: {
         savedToDatabase,
         emailSent,
+        emailDestino: toEmail,
+        resendConfigurado: !!resendApiKey,
       }
     })
   } catch (e) {
